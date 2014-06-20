@@ -34,3 +34,9 @@ for run in range(max_runs):
                                                     time_taken)
 average = (sum(runs) / max_runs) / max_count
 print "  Average time/query: %f seconds" % average
+
+# Test results
+# 10 queries, 38 matches in 0.132298 seconds
+# 10 queries, 38 matches in 0.130776 seconds
+# 10 queries, 38 matches in 0.130859 seconds
+#   Average time/query: 0.013131s
