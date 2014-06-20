@@ -11,8 +11,8 @@ os.chdir(path)
 queries = ('.Shot', '.Asset', '.Version', '.Project', '#MyBen')
 
 runs = list()
-max_runs = 3
-max_count = 10
+max_runs = 10
+max_count = 100
 
 for run in range(max_runs):
     count = 0
@@ -40,3 +40,15 @@ print "  Average time/query: %f seconds" % average
 # 10 queries, 38 matches in 0.130776 seconds
 # 10 queries, 38 matches in 0.130859 seconds
 #   Average time/query: 0.013131s
+#
+# 100 queries, 380 matches in 1.175440 seconds
+# 100 queries, 380 matches in 1.165187 seconds
+# 100 queries, 380 matches in 1.162648 seconds
+# 100 queries, 380 matches in 1.168100 seconds
+# 100 queries, 380 matches in 1.165442 seconds
+# 100 queries, 380 matches in 1.170666 seconds
+# 100 queries, 380 matches in 1.160844 seconds
+# 100 queries, 380 matches in 1.164311 seconds
+# 100 queries, 380 matches in 1.159229 seconds
+# 100 queries, 380 matches in 1.169779 seconds
+#   Average time/query: 0.011662 seconds
