@@ -6,6 +6,11 @@ The Content Object Model (COM) is based on the Document Object Model (DOM) of HT
 
 ### Usage
 
+cQuery works in conjunction with [Open Metadata][]. The process is as follows:
+
+1. One of more directories are tagged with either `class` or `id` entries.
+2. cQuery then operates in a hierarchy containing these tags.
+
 cQuery supports three selectors; class, ID and name.
 To search for a class, prefix your selector with a dot
 (.). To do the equivalent but for an ID, use hash (#).
@@ -27,6 +32,12 @@ $ cquery MyProperty.string
 # two queries are identical
 $ cquery .Female
 $ cquery Female.class
+
+# This facilitates the creation of custom selectors. For
+# example, let's return all known passwords of the
+# user "Marcus":
+$ cquery Marcus.password
+
 ```
 
 ### Architecture
@@ -38,3 +49,5 @@ For tagging, cQuery uses the semantics of Open Metadata; the process is quite si
 E.g. cquery .Asset  # Search for the file "Asset.class"
 
 - http://rfc.abstractfactory.io/spec/73/
+
+[Open Metadata]: https://github.com/abstractfactory/openmetadata

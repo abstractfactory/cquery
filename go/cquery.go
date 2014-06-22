@@ -99,7 +99,4 @@ func main() {
 
 	// Commence query
 	walk(root, selector, *directionPtr, *verbosePtr)
-	// if len(results) == 0 {
-	// 	fmt.Println("   No results")
-	// }
 }
