@@ -9,7 +9,7 @@ The Content Object Model (COM) is based on the Document Object Model (DOM) of HT
 cQuery works in conjunction with [Open Metadata][]. The process is as follows:
 
 1. One of more directories are tagged with either `class` or `id` entries.
-2. cQuery then operates in a hierarchy containing these tags.
+2. cQuery then operates within a hierarchy containing these tags.
 
 cQuery supports three selectors; class, ID and name.
 To search for a class, prefix your selector with a dot
