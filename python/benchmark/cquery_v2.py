@@ -17,43 +17,41 @@ Usage:
 """
 
 import os
-import openmetadata as om
 
 
-def cquery(query, direction='down', silent=False):
+def cquery(selector, direction='down', verbose=False):
     matches = list()
 
     # Classes
-    if query.startswith("."):
-        query = query[1:] + '.class'
+    if selector.startswith("."):
+        selector = selector[1:] + '.class'
 
     # IDs
-    elif query.startswith("#"):
-        query = query[1:] + '.id'
+    elif selector.startswith("#"):
+        selector = selector[1:] + '.id'
 
     else:
         print "Error: Must specify either Class . or ID #"
         return
 
     if direction == 'down':
-        for root, folders, _ in os.walk(os.getcwd()):
-            for folder in folders:
-                if folder.startswith("."):
-                    continue
+        for root, _, _ in os.walk(os.getcwd()):
+            if os.path.basename(root).startswith("."):
+                continue
 
-                path = os.path.join(root, folder)
-
-                if om.find(path, query):
-                    matches.append(path)
-                    if not silent:
-                        print "  {}".format(path)
+            path = os.path.join(root, ".meta", selector)
+            if os.path.exists(path):
+                matches.append(root)
+                if verbose:
+                    print "  {}".format(path)
 
     elif direction == 'up':
         root = os.getcwd()
         while True:
-            if om.find(root, query):
+            path = os.path.join(root, ".meta", selector)
+            if os.path.exists(path):
                 matches.append(path)
-                if not silent:
+                if verbose:
                     print root
 
             old_root = root
@@ -68,9 +66,12 @@ def cquery(query, direction='down', silent=False):
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument('query')
+    parser.add_argument('selector')
     parser.add_argument('--direction', default='down')
+    parser.add_argument('--verbose', action='store_true', default=False)
 
     args = parser.parse_args()
 
-    cquery(query=args.query, direction=args.direction)
+    cquery(selector=args.selector,
+           direction=args.direction,
+           verbose=args.verbose)
