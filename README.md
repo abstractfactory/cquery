@@ -7,7 +7,7 @@ The Content Object Model (COM) is based on the Document Object Model (DOM) of HT
 See also
 
  - [RFC](http://rfc.abstractfactory.io/spec/73/)
- 
+
 ### Usage
 
 cQuery works in conjunction with [Open Metadata][]. The process is as follows:
@@ -23,12 +23,19 @@ To search by name, do not include a prefix.
 ```bash
 # To return all matches of class "Asset":
 $ cquery .Asset
+# c:\studio\content\jobs\spiderman\Ben
+# c:\studio\content\jobs\spiderman\HarryOsborn
+# c:\studio\content\jobs\spiderman\Norman
+# c:\studio\content\jobs\spiderman\Peter
 
-# To return all matches of ID "MyFolder":
-$ cquery #MyFolder
+# To return all matches of ID "MyBen":
+$ cquery "#MyBen"
+# c:\studio\content\jobs\spiderman\Ben
 
-# To return all matches of name "SomeFolder":
-$ cquery MyProperty.string
+# To return all matches of name "System.custom":
+$ cquery System.custom
+# c:\studio\content\jobs\spiderman\util\dump
+# c:\studio\content\jobs\spiderman\system\crash
 
 # When searching by name, matches are returned via a
 # user-defined suffix, as opposed to the built-in class
