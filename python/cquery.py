@@ -1,5 +1,3 @@
-#!python
-
 """cQuery - Content Object Model traversal with Open Metadata
 
 cQuery supports three selectors; class, ID and name.
@@ -33,9 +31,19 @@ import openmetadata
 # Base-directory for Open Metadata contents (.meta)
 CONTAINER = openmetadata.Path.CONTAINER
 
+# Directions
+UP = 1 << 0
+DOWN = 1 << 1
 
-def query(selector, direction='down', verbose=False):
-    matches = list()
+
+def query(selector, direction=DOWN):
+    """cQuery algorithm
+
+    Arguments:
+        selector (str): CSS-style selector, e.g. .Asset
+        direction (enum): Search either up or down a hierarchy
+
+    """
 
     # By Class
     if selector.startswith("."):
@@ -49,33 +57,31 @@ def query(selector, direction='down', verbose=False):
     else:
         selector = os.path.join(CONTAINER, selector)
 
-    if direction == 'down':
+    print "Querying"
+
+    if direction & DOWN:
         for root, _, _ in os.walk(os.getcwd()):
             if os.path.basename(root).startswith("."):
                 continue
 
             path = os.path.join(root, selector)
-            if os.path.exists(path):
-                matches.append(root)
-                if verbose:
-                    print "  {}".format(root)
+            if os.path.isfile(path):
+                yield root
 
-    elif direction == 'up':
+    elif direction & UP:
         root = os.getcwd()
         while True:
             path = os.path.join(root, selector)
-            if os.path.exists(path):
-                matches.append(path)
-                if verbose:
-                    print "  {}".format(root)
+            if os.path.isfile(path):
+                yield root
 
             old_root = root
             root = os.path.dirname(root)
             if root == old_root:
                 # Top-level reached
                 break
-
-    return matches
+    else:
+        raise ValueError("Direction not recognised: %s" % direction)
 
 
 if __name__ == '__main__':
@@ -84,9 +90,22 @@ if __name__ == '__main__':
     parser.add_argument('selector')
     parser.add_argument('--direction', default='down')
     parser.add_argument('--verbose', action='store_true', default=False)
+    parser.add_argument('--first', action='store_true', default=False)
 
     args = parser.parse_args()
 
-    query(selector=args.selector,
-          direction=args.direction,
-          verbose=args.verbose)
+    if args.direction == 'down':
+        direction = DOWN
+    elif args.direction == 'up':
+        direction = UP
+    else:
+        print "Error: direction must be either up or down"
+
+    for result in query(selector=args.selector,
+                        direction=direction):
+
+        if args.verbose is True:
+            print "  {}".format(result)
+
+        if args.first is True:
+            break

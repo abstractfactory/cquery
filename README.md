@@ -61,7 +61,7 @@ E.g. cquery .Asset  # Search for the file "Asset.class"
 
 ### Performance
 
-cQuery operates on the hard-drive and is a seek-only algorithm and as such doesn't perform any reads. Despite this however, disk-access is the prime bottle-neck. cQuery has been implemented in both Python and Go for performance comparisons, here are some results:
+cQuery operates on the hard-drive and is a seek-only algorithm and as such doesn't perform any reads. Despite this however, disk-access is (seemingly) the prime bottle-neck. cQuery has been implemented in both Python and Go for performance comparisons, here are some results:
 
 **Python**
 
