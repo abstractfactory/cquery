@@ -36,10 +36,11 @@ UP = 1 << 0
 DOWN = 1 << 1
 
 
-def query(selector, direction=DOWN):
+def matches(root, selector, direction=DOWN):
     """cQuery algorithm
 
     Arguments:
+        root (str): Absolute path from which where to start looking
         selector (str): CSS-style selector, e.g. .Asset
         direction (enum): Search either up or down a hierarchy
 
@@ -57,10 +58,8 @@ def query(selector, direction=DOWN):
     else:
         selector = os.path.join(CONTAINER, selector)
 
-    print "Querying"
-
     if direction & DOWN:
-        for root, _, _ in os.walk(os.getcwd()):
+        for root, _, _ in os.walk(root):
             if os.path.basename(root).startswith("."):
                 continue
 
@@ -69,7 +68,6 @@ def query(selector, direction=DOWN):
                 yield root
 
     elif direction & UP:
-        root = os.getcwd()
         while True:
             path = os.path.join(root, selector)
             if os.path.isfile(path):
@@ -82,6 +80,17 @@ def query(selector, direction=DOWN):
                 break
     else:
         raise ValueError("Direction not recognised: %s" % direction)
+
+
+def first_match(root, selector, direction=DOWN):
+    """Return first match from `matches()` above (convenience)"""
+
+    try:
+        return next(matches(root=root,
+                            selector=selector,
+                            direction=direction))
+    except StopIteration:
+        return None
 
 
 if __name__ == '__main__':
@@ -101,7 +110,8 @@ if __name__ == '__main__':
     else:
         print "Error: direction must be either up or down"
 
-    for result in query(selector=args.selector,
+    for result in matches(root=os.getcwd(),
+                        selector=args.selector,
                         direction=direction):
 
         if args.verbose is True:
