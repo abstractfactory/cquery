@@ -22,13 +22,8 @@ if sphinx.version_info >= (1, 3):
 else:
     extensions.append('sphinxcontrib.napoleon')
 
-# Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
-
-# The suffix of source filenames.
 source_suffix = '.rst'
-
-# The master toctree document.
 master_doc = 'index'
 
 project = u'cQuery'
@@ -37,8 +32,6 @@ version = cquery.__version_info__
 release = version
 
 exclude_patterns = []
-
-# The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
 
 

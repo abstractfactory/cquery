@@ -3,19 +3,22 @@
 Overview
 ========
 
-cQuery - Schemaless directory structures
+cQuery for schemaless directory structures
 
 Why Schemaless?
 ---------------
 
-cQuery doesn't solve the issue of data-modeling. When defining a :term:`schema`, you map a digital landscape onto metaphors more easily understood than their digital counterpart. You then build tools upon this map, with the intent that the landscape rarely, ideally never, changes. Although this works and has worked for a long time, change, as we all know, is inevitable and schema's, as you can imagine, simply doesn't cope - a change to a schema, depending on its magnitude, may well break your tools.
+cQuery doesn't solve the issues surrounding data-modeling. When defining a :term:`schema`, you map a digital landscape onto metaphors more easily understood than their digital counterpart. You then build tools upon this map, with the intent that the landscape rarely, ideally never, changes. Although this works and has worked for a long time, change, as we all know, is inevitable and schema's, as you can imagine, simply doesn't cope - a change to a schema, depending on its magnitude, may well break your tools.
 
 Again, cQuery doesn't solve the issue of data-modeling, data-modeling is inherently a human problem, not a technical one. What cQuery does however is move the barrier at which change starts to affect the work you build upon it so that you are free to start building long before you know how your digital landscape will end up looking.
 
 Generally, there is a direct analogy between this "schemaless" style and dynamically typed languages. What we are trying to do here is make this mapping to the file-system natural.
 
 See also
-    - Data and Reality, William Kent
+    - Data and Reality, Kent
+    - Managing Data in Motion, Reeve
+    - Data Modeling Essentials, 3rd ed., Graeme
+    - http://martinfowler.com/articles/schemaless/
 
 How it works
 ------------
@@ -66,10 +69,12 @@ Example:
     ...                     selector='.Hero', direction=NONE) else False
 
 
-Example
--------
+Motivation
+----------
 
 Traditionally, prior to commencing a new project, you would spend a little time on figuring out an appropriate directory structure to encapsulate the data this project will generate. Something like:
+
+.. code-block:: bash
 
     o project
       o- assets
