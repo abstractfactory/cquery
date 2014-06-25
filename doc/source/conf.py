@@ -2,14 +2,25 @@
 
 import sys
 import os
+import sphinx
+
+src_path = os.path.abspath('..')
+if not src_path in sys.path:
+    sys.path.insert(0, src_path)
+
+import cquery
 
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
     'sphinx.ext.viewcode',
     'sphinx.ext.autodoc',
-    'sphinxcontrib.napoleon',
 ]
+
+if sphinx.version_info >= (1, 3):
+    extensions.append('sphinx.ext.napoleon')
+else:
+    extensions.append('sphinxcontrib.napoleon')
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -20,14 +31,10 @@ source_suffix = '.rst'
 # The master toctree document.
 master_doc = 'index'
 
-# General information about the project.
 project = u'cQuery'
 copyright = u'2014, Marcus Ottosson'
-
-# The short X.Y version.
-version = '0.0'
-# The full version, including alpha/beta/rc tags.
-release = '0.0.1'
+version = cquery.__version_info__
+release = version
 
 exclude_patterns = []
 

@@ -20,6 +20,9 @@ Attributes:
 import os
 import openmetadata
 
+__version__ = (0, 0, 1)
+__version_info__ = "{}.{}.{}".format(*__version__)
+
 # Base-directory for Open Metadata contents (.meta)
 CONTAINER = openmetadata.Path.CONTAINER
 
