@@ -3,14 +3,16 @@
 Overview
 ========
 
-cQuery is a jQuery-inspired library for schema-less directory structures.
+cQuery - Schemaless directory structures
 
-Reasoning
----------
+Why Schemaless?
+---------------
 
 cQuery doesn't solve the issue of data-modeling. When defining a :term:`schema`, you map a digital landscape onto metaphors more easily understood than their digital counterpart. You then build tools upon this map, with the intent that the landscape rarely, ideally never, changes. Although this works and has worked for a long time, change, as we all know, is inevitable and schema's, as you can imagine, simply doesn't cope - a change to a schema, depending on its magnitude, may well break your tools.
 
 Again, cQuery doesn't solve the issue of data-modeling, data-modeling is inherently a human problem, not a technical one. What cQuery does however is move the barrier at which change starts to affect the work you build upon it so that you are free to start building long before you know how your digital landscape will end up looking.
+
+Generally, there is a direct analogy between this "schemaless" style and dynamically typed languages. What we are trying to do here is make this mapping to the file-system natural.
 
 See also
     - Data and Reality, William Kent
@@ -62,3 +64,21 @@ Example:
     >>> # Is this asset a Hero?
     >>> True if first_match("/projects/spiderman/assets/Peter",
     ...                     selector='.Hero', direction=NONE) else False
+
+
+Example
+-------
+
+Traditionally, prior to commencing a new project, you would spend a little time on figuring out an appropriate directory structure to encapsulate the data this project will generate. Something like:
+
+    o project
+      o- assets
+         o- peterparker
+         o- loislane
+      o- shots
+         o- 1000
+         o- 2000
+         o- 3000
+         o- 4000
+
+Upon which you then set out to build your tools. But what if your next project also features sequences, or levels? What if the hierarchy is located on a Unix-drive or a network share depending on which computer accesses the data? The number of variables upon venturing out on any projects can never be assumed and will continuously change and the work you build on-top will have to facilitate this change.

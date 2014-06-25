@@ -59,10 +59,11 @@
         
             <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="">Overview</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#reasoning">Reasoning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#why-schemaless">Why Schemaless?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-it-works">How it works</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#selectors">Selectors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#up-or-down">Up or Down</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a><ul>
@@ -108,11 +109,12 @@
             
   <div class="section" id="overview">
 <span id="id1"></span><h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
-<p>cQuery is a jQuery-inspired library for schema-less directory structures.</p>
-<div class="section" id="reasoning">
-<h2>Reasoning<a class="headerlink" href="#reasoning" title="Permalink to this headline">¶</a></h2>
+<p>cQuery - Schemaless directory structures</p>
+<div class="section" id="why-schemaless">
+<h2>Why Schemaless?<a class="headerlink" href="#why-schemaless" title="Permalink to this headline">¶</a></h2>
 <p>cQuery doesn&#8217;t solve the issue of data-modeling. When defining a <a class="reference internal" href="glossary.html#term-schema"><em class="xref std std-term">schema</em></a>, you map a digital landscape onto metaphors more easily understood than their digital counterpart. You then build tools upon this map, with the intent that the landscape rarely, ideally never, changes. Although this works and has worked for a long time, change, as we all know, is inevitable and schema&#8217;s, as you can imagine, simply doesn&#8217;t cope - a change to a schema, depending on its magnitude, may well break your tools.</p>
 <p>Again, cQuery doesn&#8217;t solve the issue of data-modeling, data-modeling is inherently a human problem, not a technical one. What cQuery does however is move the barrier at which change starts to affect the work you build upon it so that you are free to start building long before you know how your digital landscape will end up looking.</p>
+<p>Generally, there is a direct analogy between this &#8220;schemaless&#8221; style and dynamically typed languages. What we are trying to do here is make this mapping to the file-system natural.</p>
 <dl class="docutils">
 <dt>See also</dt>
 <dd><ul class="first last simple">
@@ -171,6 +173,27 @@ $ cquery Female.class
 </div>
 </dd>
 </dl>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>Traditionally, prior to commencing a new project, you would spend a little time on figuring out an appropriate directory structure to encapsulate the data this project will generate. Something like:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>o project</dt>
+<dd><dl class="first last docutils">
+<dt>o- assets</dt>
+<dd>o- peterparker
+o- loislane</dd>
+<dt>o- shots</dt>
+<dd>o- 1000
+o- 2000
+o- 3000
+o- 4000</dd>
+</dl>
+</dd>
+</dl>
+</div></blockquote>
+<p>Upon which you then set out to build your tools. But what if your next project also features sequences, or levels? What if the hierarchy is located on a Unix-drive or a network share depending on which computer accesses the data? The number of variables upon venturing out on any projects can never be assumed and will continuously change and the work you build on-top will have to facilitate this change.</p>
 </div>
 </div>
 
