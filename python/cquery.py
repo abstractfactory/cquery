@@ -1,27 +1,19 @@
 """cQuery - Content Object Model traversal with Open Metadata
 
-cQuery supports three selectors; class, ID and name.
-To search for a class, prefix your selector with a dot
-(.). To do the equivalent but for an ID, use hash (#).
-To search by name, do not include a prefix.
+Attributes:
+  CONTAINER (str): Metadata storage prefix
+    Metadata associated with directories are prefixed
+    with a so-called "container". In Open Metadata land, this means an
+    additional directory by the name of `~openmetadata.Path.CONTAINER`
 
-When searching by name, matches are returned via a
-user-defined suffix, as opposed to the built-in class
-and ID (.class and .id respectively).
+  UP (flag): Search direction
+    A flag for `~cquery.matches()` specifying that the content
+    traversal should proceed up from the `root` directory. Use this to
+    retrieve a hierarchy of matches.
 
-For example, these two queries are identical
-$ cquery .Female
-$ cquery Female.class
-
-Usage:
-    To return all matches of class "Asset":
-        $ cquery .Asset
-
-    To return all matches of ID "MyFolder":
-        $ cquery #MyFolder
-
-    To return all matches of name "SomeFolder":
-        $ cquery MyProperty.string
+  DOWN (flag): Search direction
+    The opposite of the above UP. Use this to retrieve
+    multiple matches within a given hierarchy, located under `root`
 
 """
 
@@ -32,17 +24,24 @@ import openmetadata
 CONTAINER = openmetadata.Path.CONTAINER
 
 # Directions
-UP = 1 << 0
-DOWN = 1 << 1
+NONE = 1 << 0
+UP = 1 << 1
+DOWN = 1 << 2
 
 
 def matches(root, selector, direction=DOWN):
-    """cQuery algorithm
+    """Main cQuery algorithm
 
     Arguments:
         root (str): Absolute path from which where to start looking
-        selector (str): CSS-style selector, e.g. .Asset
-        direction (enum): Search either up or down a hierarchy
+        selector (str): CSS-style selector, e.g. ".Asset"
+        direction (enum, optional): Search either up or down a hierarchy
+
+    Yields:
+        Absolute path as str of next match.
+
+        When only looking for a first match, it is recommended to use
+        the convenience function `first_match` below.
 
     """
 
@@ -78,12 +77,28 @@ def matches(root, selector, direction=DOWN):
             if root == old_root:
                 # Top-level reached
                 break
+
+    elif direction & NONE:
+        path = os.path.join(root, selector)
+        if os.path.isfile(path):
+            yield root
+
     else:
         raise ValueError("Direction not recognised: %s" % direction)
 
 
 def first_match(root, selector, direction=DOWN):
-    """Return first match from `matches()` above (convenience)"""
+    """Return first match from `matches()` above (convenience)
+
+    Arguments:
+        root (str): Absolute path from which where to start loo
+        selector (str): CSS-style selector, e.g. .Asset
+        direction (enum): Search either up or down a hierarchy
+
+    Returns:
+        Absolute path as str if successful, None otherwise.
+
+    """
 
     try:
         return next(matches(root=root,
@@ -94,6 +109,21 @@ def first_match(root, selector, direction=DOWN):
 
 
 if __name__ == '__main__':
+    """cQuery command-line interface
+
+    The cli is designed to help construct a hierarchy and to
+    debug potential issues when doing the same through code
+    would take too long.
+
+    Example:
+        $ cd /projects/spiderman/assets/Peter/animLow
+        $ cquery .Asset
+        /projects/spiderman/assets/Peter
+        $ cquery .Project
+        /projects/spiderman
+
+    """
+
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument('selector')

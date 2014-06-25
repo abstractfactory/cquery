@@ -1,0 +1,317 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cquery &mdash; cQuery 0.0.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="cQuery 0.0.1 documentation" href="../index.html"/>
+        <link rel="up" title="Module code" href="index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="fa fa-home"> cQuery</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#reasoning">Reasoning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#how-it-works">How it works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#selectors">Selectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#up-or-down">Up or Down</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference.html#module-cquery">cquery.py</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">cQuery</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Module code</a> &raquo;</li>
+      
+    <li>cquery</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <h1>Source code for cquery</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;cQuery - Content Object Model traversal with Open Metadata</span>
+
+<span class="sd">Attributes:</span>
+<span class="sd">  CONTAINER (str): Metadata storage prefix</span>
+<span class="sd">    Metadata associated with directories are prefixed</span>
+<span class="sd">    with a so-called &quot;container&quot;. In Open Metadata land, this means an</span>
+<span class="sd">    additional directory by the name of `~openmetadata.Path.CONTAINER`</span>
+
+<span class="sd">  UP (flag): Search direction</span>
+<span class="sd">    A flag for `~cquery.matches()` specifying that the content</span>
+<span class="sd">    traversal should proceed up from the `root` directory. Use this to</span>
+<span class="sd">    retrieve a hierarchy of matches.</span>
+
+<span class="sd">  DOWN (flag): Search direction</span>
+<span class="sd">    The opposite of the above UP. Use this to retrieve</span>
+<span class="sd">    multiple matches within a given hierarchy, located under `root`</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">openmetadata</span>
+
+<span class="c"># Base-directory for Open Metadata contents (.meta)</span>
+<span class="n">CONTAINER</span> <span class="o">=</span> <span class="n">openmetadata</span><span class="o">.</span><span class="n">Path</span><span class="o">.</span><span class="n">CONTAINER</span>
+
+<span class="c"># Directions</span>
+<span class="n">NONE</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">0</span>
+<span class="n">UP</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span>
+<span class="n">DOWN</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span>
+
+
+<div class="viewcode-block" id="matches"><a class="viewcode-back" href="../reference.html#cquery.matches">[docs]</a><span class="k">def</span> <span class="nf">matches</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">selector</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="n">DOWN</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Main cQuery algorithm</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        root (str): Absolute path from which where to start looking</span>
+<span class="sd">        selector (str): CSS-style selector, e.g. &quot;.Asset&quot;</span>
+<span class="sd">        direction (enum, optional): Search either up or down a hierarchy</span>
+
+<span class="sd">    Yields:</span>
+<span class="sd">        Absolute path as str of next match.</span>
+
+<span class="sd">        When only looking for a first match, it is recommended to use</span>
+<span class="sd">        the convenience function `first_match` below.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c"># By Class</span>
+    <span class="k">if</span> <span class="n">selector</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&quot;.&quot;</span><span class="p">):</span>
+        <span class="n">selector</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CONTAINER</span><span class="p">,</span> <span class="n">selector</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="s">&#39;.class&#39;</span><span class="p">)</span>
+
+    <span class="c"># By ID</span>
+    <span class="k">elif</span> <span class="n">selector</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&quot;#&quot;</span><span class="p">):</span>
+        <span class="n">selector</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CONTAINER</span><span class="p">,</span> <span class="n">selector</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="s">&#39;.id&#39;</span><span class="p">)</span>
+
+    <span class="c"># By Name</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">selector</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CONTAINER</span><span class="p">,</span> <span class="n">selector</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">direction</span> <span class="o">&amp;</span> <span class="n">DOWN</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">root</span><span class="p">)</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&quot;.&quot;</span><span class="p">):</span>
+                <span class="k">continue</span>
+
+            <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">selector</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+                <span class="k">yield</span> <span class="n">root</span>
+
+    <span class="k">elif</span> <span class="n">direction</span> <span class="o">&amp;</span> <span class="n">UP</span><span class="p">:</span>
+        <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">selector</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+                <span class="k">yield</span> <span class="n">root</span>
+
+            <span class="n">old_root</span> <span class="o">=</span> <span class="n">root</span>
+            <span class="n">root</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">root</span> <span class="o">==</span> <span class="n">old_root</span><span class="p">:</span>
+                <span class="c"># Top-level reached</span>
+                <span class="k">break</span>
+
+    <span class="k">elif</span> <span class="n">direction</span> <span class="o">&amp;</span> <span class="n">NONE</span><span class="p">:</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">selector</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="n">root</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Direction not recognised: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">direction</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="first_match"><a class="viewcode-back" href="../reference.html#cquery.first_match">[docs]</a><span class="k">def</span> <span class="nf">first_match</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">selector</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="n">DOWN</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return first match from `matches()` above (convenience)</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        root (str): Absolute path from which where to start loo</span>
+<span class="sd">        selector (str): CSS-style selector, e.g. .Asset</span>
+<span class="sd">        direction (enum): Search either up or down a hierarchy</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Absolute path as str if successful, None otherwise.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">next</span><span class="p">(</span><span class="n">matches</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="n">root</span><span class="p">,</span>
+                            <span class="n">selector</span><span class="o">=</span><span class="n">selector</span><span class="p">,</span>
+                            <span class="n">direction</span><span class="o">=</span><span class="n">direction</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">StopIteration</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">None</span>
+
+</div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;cQuery command-line interface</span>
+
+<span class="sd">    The cli is designed to help construct a hierarchy and to</span>
+<span class="sd">    debug potential issues when doing the same through code</span>
+<span class="sd">    would take too long.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        $ cd /projects/spiderman/assets/Peter/animLow</span>
+<span class="sd">        $ cquery .Asset</span>
+<span class="sd">        /projects/spiderman/assets/Peter</span>
+<span class="sd">        $ cquery .Project</span>
+<span class="sd">        /projects/spiderman</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="kn">import</span> <span class="nn">argparse</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;selector&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;--direction&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s">&#39;down&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;--verbose&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;--first&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">direction</span> <span class="o">==</span> <span class="s">&#39;down&#39;</span><span class="p">:</span>
+        <span class="n">direction</span> <span class="o">=</span> <span class="n">DOWN</span>
+    <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">direction</span> <span class="o">==</span> <span class="s">&#39;up&#39;</span><span class="p">:</span>
+        <span class="n">direction</span> <span class="o">=</span> <span class="n">UP</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&quot;Error: direction must be either up or down&quot;</span>
+
+    <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span>
+                        <span class="n">selector</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">selector</span><span class="p">,</span>
+                        <span class="n">direction</span><span class="o">=</span><span class="n">direction</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">verbose</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="k">print</span> <span class="s">&quot;  {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">first</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="k">break</span>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Marcus Ottosson.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
