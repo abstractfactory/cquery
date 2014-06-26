@@ -1,7 +1,7 @@
 Documentation Overview
 ======================
 
-Welcome to the documentation of Gorilla v\ |version|.
+Welcome to the documentation of cQuery v\ |version|.
 
 
 Getting Started
@@ -11,6 +11,8 @@ Getting Started
    :maxdepth: 2
    
    overview
+   schemaless
+   tutorial
    reference
 
 Additional Information
@@ -21,10 +23,9 @@ Additional Information
 
     glossary
 
-Indices and tables
-==================
+Indices
+-------
 
 * :ref:`genindex`
 * :ref:`modindex`
-* :ref:`search`
 

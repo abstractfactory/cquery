@@ -1,5 +1,9 @@
 """cQuery - Content Object Model traversal with Open Metadata
 
+Functions:
+    matches (iterator): Iterate over matches
+    first_match (str): Return first match from `matches`
+
 Attributes:
   CONTAINER (str): Metadata storage prefix
     Metadata associated with directories are prefixed
@@ -22,6 +26,14 @@ import openmetadata
 
 __version__ = (0, 0, 1)
 __version_info__ = "{}.{}.{}".format(*__version__)
+
+__all__ = [
+    'NONE',
+    'UP',
+    'DOWN',
+    'matches',
+    'first_match'
+]
 
 # Base-directory for Open Metadata contents (.meta)
 CONTAINER = openmetadata.Path.CONTAINER
@@ -110,45 +122,3 @@ def first_match(root, selector, direction=DOWN):
     except StopIteration:
         return None
 
-
-if __name__ == '__main__':
-    """cQuery command-line interface
-
-    The cli is designed to help construct a hierarchy and to
-    debug potential issues when doing the same through code
-    would take too long.
-
-    Example:
-        $ cd /projects/spiderman/assets/Peter/animLow
-        $ cquery .Asset
-        /projects/spiderman/assets/Peter
-        $ cquery .Project
-        /projects/spiderman
-
-    """
-
-    import argparse
-    parser = argparse.ArgumentParser()
-    parser.add_argument('selector')
-    parser.add_argument('--direction', default='down')
-    parser.add_argument('--verbose', action='store_true', default=False)
-    parser.add_argument('--first', action='store_true', default=False)
-
-    args = parser.parse_args()
-
-    if args.direction == 'down':
-        direction = DOWN
-    elif args.direction == 'up':
-        direction = UP
-    else:
-        print "Error: direction must be either up or down"
-
-    for result in matches(root=os.getcwd(),
-                        selector=args.selector,
-                        direction=direction):
-
-        if args.verbose is True:
-            print "  {}".format(result)
-
-        if args.first is True:
-            break

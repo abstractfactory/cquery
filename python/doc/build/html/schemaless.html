@@ -1,0 +1,220 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Schemaless Directory Structures &mdash; cQuery 0.0.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="cQuery 0.0.1 documentation" href="index.html"/>
+        <link rel="next" title="Tutorial" href="tutorial.html"/>
+        <link rel="prev" title="Overview" href="overview.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="fa fa-home"> cQuery</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#how-it-works">How it works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#selectors">Selectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#up-or-down">Up or Down</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Schemaless Directory Structures</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#why-schemaless">Why Schemaless?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#motivation">Motivation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#installing-open-metadata">Installing Open Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#installing-cquery">Installing cQuery</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference.html#module-cquery">cquery.py</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">cQuery</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Schemaless Directory Structures</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/schemaless.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="schemaless-directory-structures">
+<span id="overview"></span><h1>Schemaless Directory Structures<a class="headerlink" href="#schemaless-directory-structures" title="Permalink to this headline">¶</a></h1>
+<p>cQuery for schemaless directory structures</p>
+<div class="section" id="why-schemaless">
+<h2>Why Schemaless?<a class="headerlink" href="#why-schemaless" title="Permalink to this headline">¶</a></h2>
+<p>cQuery doesn&#8217;t solve the issues surrounding data-modeling. When defining a <a class="reference internal" href="glossary.html#term-schema"><em class="xref std std-term">schema</em></a>, you map a digital landscape onto metaphors more easily understood than their digital counterpart. You then build tools upon this map, with the intent that the landscape rarely, ideally never, changes. Although this works and has worked for a long time, change is inevitable and schemas simply doesn&#8217;t cope all that well with it - i.e. a change to a schema, depending on its magnitude, may well break your tools.</p>
+<p>Again, cQuery doesn&#8217;t solve this issue, data-modeling is inherently a human problem, not a technical one. What cQuery does however is move the barrier at which change starts to affect the work you build upon it so that you are free to start building long before you know how your digital landscape will end up looking.</p>
+<p>Generally, there is a direct analogy between a schemaless style and dynamically typed languages. And as with such languages, it is extra important to explicitly document the definition, motivation and purpose of each decision made. What cQuery allows you to do is to move this decision-making process onto a later stage. As they say, procrastination leads to wiser decisions.</p>
+<dl class="docutils">
+<dt>See also</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="http://www.amazon.co.uk/Data-Reality-Perspective-Perceiving-Information/dp/1935504215">Data and Reality, Kent</a></li>
+<li><a class="reference external" href="http://www.amazon.co.uk/Managing-Data-Motion-Technologies-Intelligence/dp/0123971675/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1403708380&amp;sr=1-1&amp;keywords=Managing+Data+in+Motion">Managing Data in Motion, Reeve</a></li>
+<li><a class="reference external" href="http://www.amazon.co.uk/Modeling-Essentials-Kaufmann-Management-Systems/dp/0126445516/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1403708358&amp;sr=1-1&amp;keywords=Data+Modeling+Essentials">Data Modeling Essentials, 3rd ed., Graeme</a></li>
+<li><a class="reference external" href="http://martinfowler.com/articles/schemaless/">http://martinfowler.com/articles/schemaless/</a></li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="motivation">
+<h2>Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline">¶</a></h2>
+<p>Traditionally, prior to commencing a new project, you would spend a little time on figuring out an appropriate directory structure to encapsulate the data this project will generate. Something like:</p>
+<div class="highlight-bash"><div class="highlight"><pre>o project
+  o- assets
+     o- peterparker
+     o- loislane
+  o- shots
+     o- 1000
+     o- 2000
+     o- 3000
+     o- 4000
+</pre></div>
+</div>
+<p>Upon which you then set out to build your tools. But what if your next project also features sequences, or levels? What if the hierarchy is located on a Unix-drive or a network share depending on which computer accesses the data? The number of variables upon venturing out on any projects can never be assumed and will continuously change and the work you build on-top will have to facilitate this change.</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tutorial.html" class="btn btn-neutral float-right" title="Tutorial"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="overview.html" class="btn btn-neutral" title="Overview"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Marcus Ottosson.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
