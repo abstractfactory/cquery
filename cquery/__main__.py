@@ -44,4 +44,4 @@ try:
             break
 
 except KeyboardInterrupt:
-    print "Cancelled.."
+    pass
