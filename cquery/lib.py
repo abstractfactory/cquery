@@ -24,9 +24,6 @@ Attributes:
 import os
 import openmetadata
 
-__version__ = (0, 0, 1)
-__version_info__ = "{}.{}.{}".format(*__version__)
-
 __all__ = [
     'NONE',
     'UP',
