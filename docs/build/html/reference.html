@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Reference &mdash; cQuery 0.0.1 documentation</title>
+  <title>Reference &mdash; cQuery 0.0.2 documentation</title>
   
 
   
@@ -28,9 +28,9 @@
   
 
   
-    <link rel="top" title="cQuery 0.0.1 documentation" href="index.html"/>
+    <link rel="top" title="cQuery 0.0.2 documentation" href="index.html"/>
         <link rel="next" title="Glossary" href="glossary.html"/>
-        <link rel="prev" title="Overview" href="overview.html"/> 
+        <link rel="prev" title="Tutorial" href="tutorial.html"/> 
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
@@ -59,10 +59,19 @@
         
             <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="overview.html#reasoning">Reasoning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="overview.html#how-it-works">How it works</a></li>
 <li class="toctree-l2"><a class="reference internal" href="overview.html#selectors">Selectors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="overview.html#up-or-down">Up or Down</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="schemaless.html">Schemaless Directory Structures</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="schemaless.html#why-schemaless">Why Schemaless?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schemaless.html#motivation">Motivation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#installing-open-metadata">Installing Open Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#installing-cquery">Installing cQuery</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Reference</a><ul>
@@ -125,39 +134,9 @@
 </table>
 <div class="section" id="module-cquery">
 <span id="cquery-py"></span><h2>cquery.py<a class="headerlink" href="#module-cquery" title="Permalink to this headline">¶</a></h2>
-<p>cQuery - Content Object Model traversal with Open Metadata</p>
-<dl class="attribute">
-<dt id="cquery.CONTAINER">
-<tt class="descclassname">cquery.</tt><tt class="descname">CONTAINER</tt><a class="headerlink" href="#cquery.CONTAINER" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>str</em></p>
-<p>Metadata storage prefix
-Metadata associated with directories are prefixed
-with a so-called &#8220;container&#8221;. In Open Metadata land, this means an
-additional directory by the name of <cite>~openmetadata.Path.CONTAINER</cite></p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="cquery.UP">
-<tt class="descclassname">cquery.</tt><tt class="descname">UP</tt><a class="headerlink" href="#cquery.UP" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>flag</em></p>
-<p>Search direction
-A flag for <cite>~cquery.matches()</cite> specifying that the content
-traversal should proceed up from the <cite>root</cite> directory. Use this to
-retrieve a hierarchy of matches.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="cquery.DOWN">
-<tt class="descclassname">cquery.</tt><tt class="descname">DOWN</tt><a class="headerlink" href="#cquery.DOWN" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>flag</em></p>
-<p>Search direction
-The opposite of the above UP. Use this to retrieve
-multiple matches within a given hierarchy, located under <cite>root</cite></p>
-</dd></dl>
-
 <dl class="function">
 <dt id="cquery.matches">
-<tt class="descclassname">cquery.</tt><tt class="descname">matches</tt><big>(</big><em>root</em>, <em>selector</em>, <em>direction=4</em><big>)</big><a class="reference internal" href="_modules/cquery.html#matches"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cquery.matches" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">cquery.</tt><tt class="descname">matches</tt><big>(</big><em>root</em>, <em>selector</em>, <em>direction=4</em><big>)</big><a class="headerlink" href="#cquery.matches" title="Permalink to this definition">¶</a></dt>
 <dd><p>Main cQuery algorithm</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -183,7 +162,7 @@ multiple matches within a given hierarchy, located under <cite>root</cite></p>
 
 <dl class="function">
 <dt id="cquery.first_match">
-<tt class="descclassname">cquery.</tt><tt class="descname">first_match</tt><big>(</big><em>root</em>, <em>selector</em>, <em>direction=4</em><big>)</big><a class="reference internal" href="_modules/cquery.html#first_match"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cquery.first_match" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">cquery.</tt><tt class="descname">first_match</tt><big>(</big><em>root</em>, <em>selector</em>, <em>direction=4</em><big>)</big><a class="headerlink" href="#cquery.first_match" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return first match from <cite>matches()</cite> above (convenience)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -215,7 +194,7 @@ multiple matches within a given hierarchy, located under <cite>root</cite></p>
         <a href="glossary.html" class="btn btn-neutral float-right" title="Glossary"/>Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="overview.html" class="btn btn-neutral" title="Overview"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="tutorial.html" class="btn btn-neutral" title="Tutorial"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -244,7 +223,7 @@ multiple matches within a given hierarchy, located under <cite>root</cite></p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.0.1',
+            VERSION:'0.0.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
