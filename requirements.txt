@@ -1,1 +1,2 @@
 -e git://github.com/abstractfactory/openmetadata.git#egg=openmetadata
+sphinxcontrib-napoleon
