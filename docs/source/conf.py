@@ -28,7 +28,7 @@ master_doc = 'index'
 
 project = u'cQuery'
 copyright = u'2014, Marcus Ottosson'
-version = cquery.__version_info__
+version = cquery.__version__
 release = version
 
 exclude_patterns = []
