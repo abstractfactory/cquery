@@ -1,1 +1,1 @@
--e git://github.com/abstractfactory/openmetadata.git
+-e git://github.com/abstractfactory/openmetadata.git#egg=openmetadata
