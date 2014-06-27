@@ -5,4 +5,3 @@ We aim cQuery to be suitable for content hierarchies of any depth and width at 1
 
 - Support most of DOM
 - Average query in <0.1 seconds
-- 
