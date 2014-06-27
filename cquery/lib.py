@@ -29,7 +29,8 @@ __all__ = [
     'UP',
     'DOWN',
     'matches',
-    'first_match'
+    'first_match',
+    'convert'
 ]
 
 # Base-directory for Open Metadata contents (.meta)
@@ -39,6 +40,30 @@ CONTAINER = openmetadata.Path.CONTAINER
 NONE = 1 << 0
 UP = 1 << 1
 DOWN = 1 << 2
+
+
+def convert(selector):
+    """Convert CSS3 `selector` into Open Metadata-compatible path
+
+    Example:
+        .Asset  --> Asset.class
+        #MyId   --> MyId.id
+
+    """
+
+    # By Class
+    if selector.startswith("."):
+        selector = selector[1:] + '.class'
+
+    # By ID
+    elif selector.startswith("#"):
+        selector = selector[1:] + '.id'
+
+    # By Name
+    else:
+        pass
+
+    return selector
 
 
 def matches(root, selector, direction=DOWN):
@@ -57,17 +82,7 @@ def matches(root, selector, direction=DOWN):
 
     """
 
-    # By Class
-    if selector.startswith("."):
-        selector = os.path.join(CONTAINER, selector[1:] + '.class')
-
-    # By ID
-    elif selector.startswith("#"):
-        selector = os.path.join(CONTAINER, selector[1:] + '.id')
-
-    # By Name
-    else:
-        selector = os.path.join(CONTAINER, selector)
+    selector = os.path.join(CONTAINER, convert(selector))
 
     if direction & DOWN:
         for root, _, _ in os.walk(root):

@@ -1,26 +1,30 @@
 
+.. _quickstart:
+
 Quickstart
 ==========
 
 This page will guide you through setting up cQuery and running your first query.
 
-1. Install Open Metadata and cQuery
------------------------------------
+Install
+-------
+
+.. note:: Both cQuery and Open Metadata are pure-Python libraries and as such will require an installation of `Python`_. Tested on 2.7.7.
 
 .. code-block:: bash
 
     $ pip install git+https://github.com/abstractfactory/openmetadata
     $ pip install git+https://github.com/abstractfactory/cquery
 
-2. Make executables for the command-line interface
---------------------------------------------------
+Command-line
+------------
 
-Both the Open Metadata and cQuery packages can be run as command-line interfaces, but we’ll have to expose them to the console somehow.
+To run cQuery from a command-line, we’ll expose it to the console.
 
-Executables for Windows
-~~~~~~~
+For Windows
+~~~~~~~~~~~
 
-Save these two files and place them somewhere in your PATH so that they can be accessed via a command-line.
+Save this file somewhere in your PATH so that it can be accessed via a command-line.
 
 **cquery.bat**
 
@@ -29,61 +33,58 @@ Save these two files and place them somewhere in your PATH so that they can be a
     @echo off
     python -m cquery %* --verbose
 
+For Unix
+~~~~~~~~
 
-**openmetadata.bat**
-
-.. code-block:: bash
-
-    @echo off
-    python -m openmetadata %*
-
-Executables for Unix
-~~~~
-
-- cquery
+**cquery**
 
 .. code-block:: bash
 
     $ to be continued
 
-- openmetadata
+cQuery will install its executable automatically sometime in the future, I’m just not sure how to go about it at the moment. Does anyone have any experience with this? Let us know!
+
+Some Content
+------------
 
 .. code-block:: bash
 
-    $ to be continued
+    $ cd c:/projects
+    $ mkdir spiderman/assets/Peter
+    $ mkdir spiderman/assets/Goblin
 
-Both Open Metadata and cQuery will install the executables automatically sometime in the future, I’m just not sure how to go about it at the moment. Does anyone have any experience with this? Let us know!
+    $ mkdir spiderman/shots/1000
+    $ mkdir spiderman/shots/2000
 
-3. Make content hierarchy, for testing purposes
------------------------------------------------
-
-.. code-block:: bash
-
-    $ cd c:\projects
-    $ mkdir spiderman\assets\Peter
-    $ mkdir spiderman\assets\Goblin
-
-    $ mkdir spiderman\shots\1000
-    $ mkdir spiderman\shots\2000
-
-4. Tag
-------
+Tag
+---
 
 .. code-block:: bash
 
-    $ cd spiderman\assets\Peter
-    $ openmetadata Asset.class --value=None
-    5. Query
+    $ cd spiderman/assets
+    $ cquery Asset.class --tag --root=Peter
+    $ cquery Asset.class --tag --root=Goblin
+    $ cd ../shots
+    $ cquery Shot.class --tag --root=1000
+    $ cquery Shot.class --tag --root=2000
+
+Query
+-----
+
+.. code-block:: bash
 
     $ cd ..
     $ cd ..
     $ cquery .Asset
-    c:\projects\spiderman\assets\Peter
+    c:/projects/spiderman/assets/Peter
+    c:/projects/spiderman/assets/Goblin
 
-And that’s it. :) Now you can tag and query via the command-line. In code, you would query like this:
+And that’s it. Now you can tag and query via the command-line.
 
-6. Query in-code
-----------------
+Python
+------
+
+From Python, you could query like this:
 
 .. code-block:: python
 
@@ -92,3 +93,8 @@ And that’s it. :) Now you can tag and query via the command-line. In code, you
     import cquery
     for match in cquery.matches(os.getcwd(), selector='.Asset'):
         print match
+
+
+Next we'll have a look at a more thorough version of this quickstart.
+
+.. _`Python`: http://python.org

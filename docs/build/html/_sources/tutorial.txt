@@ -1,7 +1,7 @@
 Tutorial
 ========
 
-For this tutorial you will need cQuery and Open Metadata, for queries and manipulation of metadata respectively.
+This is the more thourough version of the :ref:`quickstart`_.
 
 Installing
 ----------

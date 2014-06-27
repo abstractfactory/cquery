@@ -60,6 +60,7 @@
             <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="overview.html#how-it-works">How it works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#quick-example">Quick example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="overview.html#selectors">Selectors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="overview.html#up-or-down">Up or Down</a></li>
 <li class="toctree-l2"><a class="reference internal" href="overview.html#architecture">Architecture</a></li>
@@ -67,18 +68,19 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Quickstart</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#install-open-metadata-and-cquery">1. Install Open Metadata and cQuery</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#make-executables-for-the-command-line-interface">2. Make executables for the command-line interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#make-content-hierarchy-for-testing-purposes">3. Make content hierarchy, for testing purposes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#tag">4. Tag</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#query-in-code">6. Query in-code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install">Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#command-line">Command-line</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#some-content">Some Content</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tag">Tag</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#query">Query</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#python">Python</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="tutorial.html#installing">Installing</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="schemaless.html">Schemaless Directory Structures</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="schemaless.html">Schemaless</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="schemaless.html#why-schemaless">Why Schemaless?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="schemaless.html#motivation">Motivation</a></li>
 </ul>
@@ -125,76 +127,76 @@
           <div role="main">
             
   <div class="section" id="quickstart">
-<h1>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h1>
 <p>This page will guide you through setting up cQuery and running your first query.</p>
-<div class="section" id="install-open-metadata-and-cquery">
-<h2>1. Install Open Metadata and cQuery<a class="headerlink" href="#install-open-metadata-and-cquery" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="install">
+<h2>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Both cQuery and Open Metadata are pure-Python libraries and as such will require an installation of <a class="reference external" href="http://python.org">Python</a>. Tested on 2.7.7.</p>
+</div>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>pip install git+https://github.com/abstractfactory/openmetadata
 <span class="nv">$ </span>pip install git+https://github.com/abstractfactory/cquery
 </pre></div>
 </div>
 </div>
-<div class="section" id="make-executables-for-the-command-line-interface">
-<h2>2. Make executables for the command-line interface<a class="headerlink" href="#make-executables-for-the-command-line-interface" title="Permalink to this headline">¶</a></h2>
-<p>Both the Open Metadata and cQuery packages can be run as command-line interfaces, but we’ll have to expose them to the console somehow.</p>
-<div class="section" id="executables-for-windows">
-<h3>Executables for Windows<a class="headerlink" href="#executables-for-windows" title="Permalink to this headline">¶</a></h3>
-<p>Save these two files and place them somewhere in your PATH so that they can be accessed via a command-line.</p>
+<div class="section" id="command-line">
+<h2>Command-line<a class="headerlink" href="#command-line" title="Permalink to this headline">¶</a></h2>
+<p>To run cQuery from a command-line, we’ll expose it to the console.</p>
+<div class="section" id="for-windows">
+<h3>For Windows<a class="headerlink" href="#for-windows" title="Permalink to this headline">¶</a></h3>
+<p>Save this file somewhere in your PATH so that it can be accessed via a command-line.</p>
 <p><strong>cquery.bat</strong></p>
 <div class="highlight-bash"><div class="highlight"><pre>@echo off
 python -m cquery %* --verbose
 </pre></div>
 </div>
-<p><strong>openmetadata.bat</strong></p>
-<div class="highlight-bash"><div class="highlight"><pre>@echo off
-python -m openmetadata %*
-</pre></div>
 </div>
-</div>
-<div class="section" id="executables-for-unix">
-<h3>Executables for Unix<a class="headerlink" href="#executables-for-unix" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>cquery</li>
-</ul>
+<div class="section" id="for-unix">
+<h3>For Unix<a class="headerlink" href="#for-unix" title="Permalink to this headline">¶</a></h3>
+<p><strong>cquery</strong></p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>to be continued
 </pre></div>
 </div>
-<ul class="simple">
-<li>openmetadata</li>
-</ul>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>to be continued
-</pre></div>
-</div>
-<p>Both Open Metadata and cQuery will install the executables automatically sometime in the future, I’m just not sure how to go about it at the moment. Does anyone have any experience with this? Let us know!</p>
+<p>cQuery will install its executable automatically sometime in the future, I’m just not sure how to go about it at the moment. Does anyone have any experience with this? Let us know!</p>
 </div>
 </div>
-<div class="section" id="make-content-hierarchy-for-testing-purposes">
-<h2>3. Make content hierarchy, for testing purposes<a class="headerlink" href="#make-content-hierarchy-for-testing-purposes" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd </span>c:<span class="se">\p</span>rojects
-<span class="nv">$ </span>mkdir spiderman<span class="se">\a</span>ssets<span class="se">\P</span>eter
-<span class="nv">$ </span>mkdir spiderman<span class="se">\a</span>ssets<span class="se">\G</span>oblin
+<div class="section" id="some-content">
+<h2>Some Content<a class="headerlink" href="#some-content" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd </span>c:/projects
+<span class="nv">$ </span>mkdir spiderman/assets/Peter
+<span class="nv">$ </span>mkdir spiderman/assets/Goblin
 
-<span class="nv">$ </span>mkdir spiderman<span class="se">\s</span>hots<span class="se">\1</span>000
-<span class="nv">$ </span>mkdir spiderman<span class="se">\s</span>hots<span class="se">\2</span>000
+<span class="nv">$ </span>mkdir spiderman/shots/1000
+<span class="nv">$ </span>mkdir spiderman/shots/2000
 </pre></div>
 </div>
 </div>
 <div class="section" id="tag">
-<h2>4. Tag<a class="headerlink" href="#tag" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd </span>spiderman<span class="se">\a</span>ssets<span class="se">\P</span>eter
-<span class="nv">$ </span>openmetadata Asset.class --value<span class="o">=</span>None
-5. Query
-
-<span class="nv">$ </span><span class="nb">cd</span> ..
-<span class="nv">$ </span><span class="nb">cd</span> ..
-<span class="nv">$ </span>cquery .Asset
-c:<span class="se">\p</span>rojects<span class="se">\s</span>piderman<span class="se">\a</span>ssets<span class="se">\P</span>eter
+<h2>Tag<a class="headerlink" href="#tag" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd </span>spiderman/assets
+<span class="nv">$ </span>cquery Asset.class --tag --root<span class="o">=</span>Peter
+<span class="nv">$ </span>cquery Asset.class --tag --root<span class="o">=</span>Goblin
+<span class="nv">$ </span><span class="nb">cd</span> ../shots
+<span class="nv">$ </span>cquery Shot.class --tag --root<span class="o">=</span>1000
+<span class="nv">$ </span>cquery Shot.class --tag --root<span class="o">=</span>2000
 </pre></div>
 </div>
-<p>And that’s it. :) Now you can tag and query via the command-line. In code, you would query like this:</p>
 </div>
-<div class="section" id="query-in-code">
-<h2>6. Query in-code<a class="headerlink" href="#query-in-code" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="query">
+<h2>Query<a class="headerlink" href="#query" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> ..
+<span class="nv">$ </span><span class="nb">cd</span> ..
+<span class="nv">$ </span>cquery .Asset
+c:/projects/spiderman/assets/Peter
+c:/projects/spiderman/assets/Goblin
+</pre></div>
+</div>
+<p>And that’s it. Now you can tag and query via the command-line.</p>
+</div>
+<div class="section" id="python">
+<h2>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h2>
+<p>From Python, you could query like this:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">os</span>
 
 <span class="kn">import</span> <span class="nn">cquery</span>
@@ -202,6 +204,7 @@ c:<span class="se">\p</span>rojects<span class="se">\s</span>piderman<span class
     <span class="k">print</span> <span class="n">match</span>
 </pre></div>
 </div>
+<p>Next we&#8217;ll have a look at a more thorough version of this quickstart.</p>
 </div>
 </div>
 

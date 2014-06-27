@@ -1,7 +1,7 @@
 .. _overview:
 
-Schemaless Directory Structures
-===============================
+Schemaless
+==========
 
 cQuery for schemaless directory structures
 

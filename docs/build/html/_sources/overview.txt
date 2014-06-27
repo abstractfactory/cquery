@@ -20,14 +20,24 @@ cQuery answers the questions:
     - Am I Orange?
     - How many shaders do I contain?
 
-.. note::
+Quick example
+-------------
 
-    cQuery currently supports three selectors; class, ID and name. To search for a class, prefix your selector with a dot (.). To do the equivalent but for an ID, use hash (#). To search by name, do not include a prefix. When searching by name, matches are returned via a user-defined suffix, as opposed to the built-in class and ID (.class and .id respectively).
+Here is how it might look when tagging and querying a content hierarchy for a feature animation project.
 
-    For example, the results of these two queries are identical::
+.. code-block:: bash
 
-        $ cquery .Female
-        $ cquery Female.class
+    $ cd spiderman/assets
+    $ cquery Asset.class --tag --root=Peter
+    $ cquery Asset.class --tag --root=Goblin
+    $ cd ../shots
+    $ cquery Shot.class --tag --root=1000
+    $ cquery Shot.class --tag --root=2000
+    $ cd ..
+    $ cd ..
+    $ cquery .Asset
+    c:/projects/spiderman/assets/Peter
+    c:/projects/spiderman/assets/Goblin
 
 Selectors
 ---------
@@ -39,7 +49,10 @@ Up or Down
 
 Starting from a root directory, a query can either be made up or down. To find descending matches of a given directory, you would use DOWN. To instead query for ascending matches, you would use UP. To query one-self only, you would use NONE.
 
-Example:
+Here is how that might look used in Python:
+
+.. code-block:: python
+
     >>> # Find the associated project of the asset Peter
     >>> first_match("/projects/spiderman/assets/Peter",
     ...             selector='.Project', direction=UP)
@@ -57,48 +70,58 @@ Example:
 Architecture
 ------------
 
-cQuery works upon directories tagged with metadata to indicate its class, ID or name. The tagged directories may then be queried, either from outside a hierarchy looking in or from within a hierarchy looking out in order to find either all matches or best-match.
+cQuery works upon directories tagged with metadata to indicate its class, ID or name. The tagged directories may then be queried, either from outside a hierarchy looking in or from within a hierarchy looking out.
 
-For tagging, cQuery uses the semantics of Open Metadata; the process is quite simple - for each subdirectory within a directory, recursively look for a file by name stored within the Open Metadata container. If a match is found, return the absolute path to said directory. The name of this file is the "selector" argument of your query.
+For tagging, cQuery uses the Open Metadata library; the process is quite simple - for each subdirectory within a directory, recursively look for a file by name stored within the Open Metadata container. If a match is found, return the absolute path to said directory. The name of this file is the "selector" argument of your query.
 
-E.g. cquery .Asset  # Search for the file "Asset.class"
+Example:
+
+.. code-block:: bash
+
+    $ cquery .Asset  # Search for the file "Asset.class"
 
 Performance
 -----------
 
-cQuery operates on the hard-drive and is a seek-only algorithm and as such doesn't perform any reads. Despite this however, disk-access is (seemingly) the prime bottle-neck. cQuery has been implemented in both Python and Go for performance comparisons, here are some results:
+cQuery operates on the hard-drive and is a seek-only algorithm and as such doesn't perform any reads. Despite this however, disk-access is (seemingly) the prime bottle-neck. A cQuery prototype has been implemented in both Python and Go for performance comparisons, here are some results:
 
 **Python**
 
-```python
-# Scanning a hierarchy of 3601 items
-# 1 queries, 7 matches in 1.494072 seconds
-# 1 queries, 7 matches in 1.480471 seconds
-# 1 queries, 7 matches in 1.477589 seconds
-#   Average time/query: 1.484044 seconds
+.. code-block:: python
 
-# Scanning a hierarchy of 47715 items
-# 1 queries, 14 matches in 19.888399 seconds
-# 1 queries, 14 matches in 20.078811 seconds
-# 1 queries, 14 matches in 19.879660 seconds
-#   Average time/query: 19.948957 seconds
+    # Scanning a hierarchy of 3601 items
+    # 1 queries, 7 matches in 1.494072 seconds
+    # 1 queries, 7 matches in 1.480471 seconds
+    # 1 queries, 7 matches in 1.477589 seconds
+    #   Average time/query: 1.484044 seconds
 
-```
+    # Scanning a hierarchy of 47715 items
+    # 1 queries, 14 matches in 19.888399 seconds
+    # 1 queries, 14 matches in 20.078811 seconds
+    # 1 queries, 14 matches in 19.879660 seconds
+    #   Average time/query: 19.948957 seconds
 
 **Go**
 
-```python
-# Scanning a hierarchy of 3601 items
-# 1 queries, 7 matches in 1.425702 seconds
-# 1 queries, 7 matches in 1.420373 seconds
-# 1 queries, 7 matches in 1.419541 seconds
-#   Average time/query: 1.421872 seconds
+.. code-block:: python
 
-# Scanning a hierarchy of 47715 items
-# 1 queries, 14 matches in 18.015012 seconds
-# 1 queries, 14 matches in 17.951607 seconds
-# 1 queries, 14 matches in 17.994924 seconds
-#   Average time/query: 17.987181 seconds
-```
+    # Scanning a hierarchy of 3601 items
+    # 1 queries, 7 matches in 1.425702 seconds
+    # 1 queries, 7 matches in 1.420373 seconds
+    # 1 queries, 7 matches in 1.419541 seconds
+    #   Average time/query: 1.421872 seconds
 
-As you can see, the differences are marginal and of little concern. A benefit of Go however is the standalone executables it produces which may prove useful in certain circumstances.
+    # Scanning a hierarchy of 47715 items
+    # 1 queries, 14 matches in 18.015012 seconds
+    # 1 queries, 14 matches in 17.951607 seconds
+    # 1 queries, 14 matches in 17.994924 seconds
+    #   Average time/query: 17.987181 seconds
+
+
+For some more encouraging results in file-system search and indexing, here are some resources:
+
+- http://www.voidtools.com/
+- http://rlocate.sourceforge.net/
+- http://www.lesbonscomptes.com/recoll/
+- http://grothoff.org/christian/doodle/
+- http://xapian.org/

@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Reference &mdash; cQuery 0.0.2 documentation</title>
+  <title>Roadmap &mdash; cQuery 0.0.2 documentation</title>
   
 
   
@@ -28,9 +28,7 @@
   
 
   
-    <link rel="top" title="cQuery 0.0.2 documentation" href="index.html"/>
-        <link rel="next" title="Glossary" href="glossary.html"/>
-        <link rel="prev" title="Schemaless" href="schemaless.html"/> 
+    <link rel="top" title="cQuery 0.0.2 documentation" href="index.html"/> 
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
@@ -57,9 +55,10 @@
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
         
         
-            <ul class="current">
+            <ul>
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="overview.html#how-it-works">How it works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#quick-example">Quick example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="overview.html#selectors">Selectors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="overview.html#up-or-down">Up or Down</a></li>
 <li class="toctree-l2"><a class="reference internal" href="overview.html#architecture">Architecture</a></li>
@@ -84,8 +83,8 @@
 <li class="toctree-l2"><a class="reference internal" href="schemaless.html#motivation">Motivation</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-cquery">cquery.py</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference.html#module-cquery">cquery.py</a></li>
 </ul>
 </li>
 </ul>
@@ -114,10 +113,10 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li>Reference</li>
+    <li>Roadmap</li>
       <li class="wy-breadcrumbs-aside">
         
-          <a href="_sources/reference.txt" rel="nofollow"> View page source</a>
+          <a href="_sources/roadmap.txt" rel="nofollow"> View page source</a>
         
       </li>
   </ul>
@@ -125,88 +124,19 @@
 </div>
           <div role="main">
             
-  <div class="section" id="reference">
-<span id="id1"></span><h1>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h1>
-<p>cQuery consists of a single function: <a class="reference internal" href="#cquery.matches" title="cquery.matches"><tt class="xref py py-func docutils literal"><span class="pre">cquery.matches()</span></tt></a> and takes at least two arguments: a <cite>root</cite> and <cite>selector</cite>. The root determines from where within a hierarchy to start a query whereas the <cite>selector</cite> determines what to query for.</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#cquery.matches" title="cquery.matches"><tt class="xref py py-obj docutils literal"><span class="pre">matches</span></tt></a></td>
-<td>Main cQuery algorithm</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#cquery.first_match" title="cquery.first_match"><tt class="xref py py-obj docutils literal"><span class="pre">first_match</span></tt></a></td>
-<td>Return first match from <cite>matches()</cite> above (convenience)</td>
-</tr>
-</tbody>
-</table>
-<div class="section" id="module-cquery">
-<span id="cquery-py"></span><h2>cquery.py<a class="headerlink" href="#module-cquery" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="cquery.matches">
-<tt class="descclassname">cquery.</tt><tt class="descname">matches</tt><big>(</big><em>root</em>, <em>selector</em>, <em>direction=4</em><big>)</big><a class="headerlink" href="#cquery.matches" title="Permalink to this definition">¶</a></dt>
-<dd><p>Main cQuery algorithm</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>root</strong> (<em>str</em>) &#8211; Absolute path from which where to start looking</li>
-<li><strong>selector</strong> (<em>str</em>) &#8211; CSS-style selector, e.g. &#8221;.Asset&#8221;</li>
-<li><strong>direction</strong> (<em>enum, optional</em>) &#8211; Search either up or down a hierarchy</li>
+  <div class="section" id="roadmap">
+<h1>Roadmap<a class="headerlink" href="#roadmap" title="Permalink to this headline">¶</a></h1>
+<p>We aim cQuery to be suitable for content hierarchies of any depth and width at 10 queries/second. cQuery should work without any setup and may additionally be set up with an indexing daemon. The daemon would either run locally or remotely and maintain a live representation of either all or pre-defined hierarchies. The daemon would optimise common queries. It should be possible to query via the daemon directly, so as to allow the daemon to persist the entire index in-memory for additional performance gain.</p>
+<ul class="simple">
+<li>Support most of DOM</li>
+<li>Average query in &lt;0.1 seconds</li>
+<li></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Yields:</th><td class="field-body"><ul class="first last simple">
-<li><em>Absolute path as str of next match.</em></li>
-<li><em>When only looking for a first match, it is recommended to use</em></li>
-<li>the convenience function <cite>first_match</cite> below.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="cquery.first_match">
-<tt class="descclassname">cquery.</tt><tt class="descname">first_match</tt><big>(</big><em>root</em>, <em>selector</em>, <em>direction=4</em><big>)</big><a class="headerlink" href="#cquery.first_match" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return first match from <cite>matches()</cite> above (convenience)</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>root</strong> (<em>str</em>) &#8211; Absolute path from which where to start loo</li>
-<li><strong>selector</strong> (<em>str</em>) &#8211; CSS-style selector, e.g. .Asset</li>
-<li><strong>direction</strong> (<em>enum</em>) &#8211; Search either up or down a hierarchy</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Absolute path as str if successful, None otherwise.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</div>
 </div>
 
 
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="glossary.html" class="btn btn-neutral float-right" title="Glossary"/>Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="schemaless.html" class="btn btn-neutral" title="Schemaless"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>

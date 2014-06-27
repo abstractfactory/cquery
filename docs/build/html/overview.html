@@ -29,7 +29,7 @@
 
   
     <link rel="top" title="cQuery 0.0.2 documentation" href="index.html"/>
-        <link rel="next" title="Schemaless Directory Structures" href="schemaless.html"/>
+        <link rel="next" title="Quickstart" href="quickstart.html"/>
         <link rel="prev" title="Documentation Overview" href="index.html"/> 
 
   
@@ -60,19 +60,29 @@
             <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="">Overview</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#how-it-works">How it works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#quick-example">Quick example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#selectors">Selectors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#up-or-down">Up or Down</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#architecture">Architecture</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#performance">Performance</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="schemaless.html">Schemaless Directory Structures</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="schemaless.html#why-schemaless">Why Schemaless?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="schemaless.html#motivation">Motivation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#install">Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#command-line">Command-line</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#some-content">Some Content</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#tag">Tag</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#query">Query</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#python">Python</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="tutorial.html#installing">Installing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="schemaless.html">Schemaless</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="schemaless.html#why-schemaless">Why Schemaless?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schemaless.html#motivation">Motivation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a><ul>
@@ -135,14 +145,22 @@
 <li>How many shaders do I contain?</li>
 </ul>
 </div></blockquote>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p>cQuery currently supports three selectors; class, ID and name. To search for a class, prefix your selector with a dot (.). To do the equivalent but for an ID, use hash (#). To search by name, do not include a prefix. When searching by name, matches are returned via a user-defined suffix, as opposed to the built-in class and ID (.class and .id respectively).</p>
-<p>For example, the results of these two queries are identical:</p>
-<div class="last highlight-python"><div class="highlight"><pre>$ cquery .Female
-$ cquery Female.class
-</pre></div>
 </div>
+<div class="section" id="quick-example">
+<h2>Quick example<a class="headerlink" href="#quick-example" title="Permalink to this headline">¶</a></h2>
+<p>Here is how it might look when tagging and querying a content hierarchy for a feature animation project.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd </span>spiderman/assets
+<span class="nv">$ </span>cquery Asset.class --tag --root<span class="o">=</span>Peter
+<span class="nv">$ </span>cquery Asset.class --tag --root<span class="o">=</span>Goblin
+<span class="nv">$ </span><span class="nb">cd</span> ../shots
+<span class="nv">$ </span>cquery Shot.class --tag --root<span class="o">=</span>1000
+<span class="nv">$ </span>cquery Shot.class --tag --root<span class="o">=</span>2000
+<span class="nv">$ </span><span class="nb">cd</span> ..
+<span class="nv">$ </span><span class="nb">cd</span> ..
+<span class="nv">$ </span>cquery .Asset
+c:/projects/spiderman/assets/Peter
+c:/projects/spiderman/assets/Goblin
+</pre></div>
 </div>
 </div>
 <div class="section" id="selectors">
@@ -152,9 +170,8 @@ $ cquery Female.class
 <div class="section" id="up-or-down">
 <h2>Up or Down<a class="headerlink" href="#up-or-down" title="Permalink to this headline">¶</a></h2>
 <p>Starting from a root directory, a query can either be made up or down. To find descending matches of a given directory, you would use DOWN. To instead query for ascending matches, you would use UP. To query one-self only, you would use NONE.</p>
-<dl class="docutils">
-<dt>Example:</dt>
-<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># Find the associated project of the asset Peter</span>
+<p>Here is how that might look used in Python:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># Find the associated project of the asset Peter</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">first_match</span><span class="p">(</span><span class="s">&quot;/projects/spiderman/assets/Peter&quot;</span><span class="p">,</span>
 <span class="gp">... </span>            <span class="n">selector</span><span class="o">=</span><span class="s">&#39;.Project&#39;</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="n">UP</span><span class="p">)</span>
 <span class="go">&gt;&gt;&gt;</span>
@@ -168,45 +185,55 @@ $ cquery Female.class
 <span class="gp">... </span>                    <span class="n">selector</span><span class="o">=</span><span class="s">&#39;.Hero&#39;</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="n">NONE</span><span class="p">)</span> <span class="k">else</span> <span class="bp">False</span>
 </pre></div>
 </div>
-</dd>
-</dl>
 </div>
 <div class="section" id="architecture">
 <h2>Architecture<a class="headerlink" href="#architecture" title="Permalink to this headline">¶</a></h2>
-<p>cQuery works upon directories tagged with metadata to indicate its class, ID or name. The tagged directories may then be queried, either from outside a hierarchy looking in or from within a hierarchy looking out in order to find either all matches or best-match.</p>
-<p>For tagging, cQuery uses the semantics of Open Metadata; the process is quite simple - for each subdirectory within a directory, recursively look for a file by name stored within the Open Metadata container. If a match is found, return the absolute path to said directory. The name of this file is the &#8220;selector&#8221; argument of your query.</p>
-<p>E.g. cquery .Asset  # Search for the file &#8220;Asset.class&#8221;</p>
+<p>cQuery works upon directories tagged with metadata to indicate its class, ID or name. The tagged directories may then be queried, either from outside a hierarchy looking in or from within a hierarchy looking out.</p>
+<p>For tagging, cQuery uses the Open Metadata library; the process is quite simple - for each subdirectory within a directory, recursively look for a file by name stored within the Open Metadata container. If a match is found, return the absolute path to said directory. The name of this file is the &#8220;selector&#8221; argument of your query.</p>
+<p>Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>cquery .Asset  <span class="c"># Search for the file &quot;Asset.class&quot;</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="performance">
 <h2>Performance<a class="headerlink" href="#performance" title="Permalink to this headline">¶</a></h2>
-<p>cQuery operates on the hard-drive and is a seek-only algorithm and as such doesn&#8217;t perform any reads. Despite this however, disk-access is (seemingly) the prime bottle-neck. cQuery has been implemented in both Python and Go for performance comparisons, here are some results:</p>
+<p>cQuery operates on the hard-drive and is a seek-only algorithm and as such doesn&#8217;t perform any reads. Despite this however, disk-access is (seemingly) the prime bottle-neck. A cQuery prototype has been implemented in both Python and Go for performance comparisons, here are some results:</p>
 <p><strong>Python</strong></p>
-<p><a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>python
-# Scanning a hierarchy of 3601 items
-# 1 queries, 7 matches in 1.494072 seconds
-# 1 queries, 7 matches in 1.480471 seconds
-# 1 queries, 7 matches in 1.477589 seconds
-#   Average time/query: 1.484044 seconds</p>
-<p># Scanning a hierarchy of 47715 items
-# 1 queries, 14 matches in 19.888399 seconds
-# 1 queries, 14 matches in 20.078811 seconds
-# 1 queries, 14 matches in 19.879660 seconds
-#   Average time/query: 19.948957 seconds</p>
-<p><a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">`</span></a></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Scanning a hierarchy of 3601 items</span>
+<span class="c"># 1 queries, 7 matches in 1.494072 seconds</span>
+<span class="c"># 1 queries, 7 matches in 1.480471 seconds</span>
+<span class="c"># 1 queries, 7 matches in 1.477589 seconds</span>
+<span class="c">#   Average time/query: 1.484044 seconds</span>
+
+<span class="c"># Scanning a hierarchy of 47715 items</span>
+<span class="c"># 1 queries, 14 matches in 19.888399 seconds</span>
+<span class="c"># 1 queries, 14 matches in 20.078811 seconds</span>
+<span class="c"># 1 queries, 14 matches in 19.879660 seconds</span>
+<span class="c">#   Average time/query: 19.948957 seconds</span>
+</pre></div>
+</div>
 <p><strong>Go</strong></p>
-<p><a href="#id9"><span class="problematic" id="id10">``</span></a><a href="#id11"><span class="problematic" id="id12">`</span></a>python
-# Scanning a hierarchy of 3601 items
-# 1 queries, 7 matches in 1.425702 seconds
-# 1 queries, 7 matches in 1.420373 seconds
-# 1 queries, 7 matches in 1.419541 seconds
-#   Average time/query: 1.421872 seconds</p>
-<p># Scanning a hierarchy of 47715 items
-# 1 queries, 14 matches in 18.015012 seconds
-# 1 queries, 14 matches in 17.951607 seconds
-# 1 queries, 14 matches in 17.994924 seconds
-#   Average time/query: 17.987181 seconds
-<a href="#id13"><span class="problematic" id="id14">``</span></a><a href="#id15"><span class="problematic" id="id16">`</span></a></p>
-<p>As you can see, the differences are marginal and of little concern. A benefit of Go however is the standalone executables it produces which may prove useful in certain circumstances.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Scanning a hierarchy of 3601 items</span>
+<span class="c"># 1 queries, 7 matches in 1.425702 seconds</span>
+<span class="c"># 1 queries, 7 matches in 1.420373 seconds</span>
+<span class="c"># 1 queries, 7 matches in 1.419541 seconds</span>
+<span class="c">#   Average time/query: 1.421872 seconds</span>
+
+<span class="c"># Scanning a hierarchy of 47715 items</span>
+<span class="c"># 1 queries, 14 matches in 18.015012 seconds</span>
+<span class="c"># 1 queries, 14 matches in 17.951607 seconds</span>
+<span class="c"># 1 queries, 14 matches in 17.994924 seconds</span>
+<span class="c">#   Average time/query: 17.987181 seconds</span>
+</pre></div>
+</div>
+<p>For some more encouraging results in file-system search and indexing, here are some resources:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.voidtools.com/">http://www.voidtools.com/</a></li>
+<li><a class="reference external" href="http://rlocate.sourceforge.net/">http://rlocate.sourceforge.net/</a></li>
+<li><a class="reference external" href="http://www.lesbonscomptes.com/recoll/">http://www.lesbonscomptes.com/recoll/</a></li>
+<li><a class="reference external" href="http://grothoff.org/christian/doodle/">http://grothoff.org/christian/doodle/</a></li>
+<li><a class="reference external" href="http://xapian.org/">http://xapian.org/</a></li>
+</ul>
 </div>
 </div>
 
@@ -216,7 +243,7 @@ $ cquery Female.class
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="schemaless.html" class="btn btn-neutral float-right" title="Schemaless Directory Structures"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="quickstart.html" class="btn btn-neutral float-right" title="Quickstart"/>Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral" title="Documentation Overview"><span class="fa fa-arrow-circle-left"></span> Previous</a>

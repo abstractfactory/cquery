@@ -8,13 +8,18 @@ Getting Started
 ---------------
 
 .. toctree::
-   :maxdepth: 2
+    :maxdepth: 2
    
-   overview
-   quickstart
-   tutorial
-   schemaless
-   reference
+    overview
+    quickstart
+    tutorial
+
+Reference
+---------
+.. toctree::
+    :maxdepth: 2
+
+    reference
 
 Additional Information
 ----------------------
@@ -22,7 +27,9 @@ Additional Information
 .. toctree::
     :maxdepth: 1
 
+    schemaless
     glossary
+    roadmap
 
 Indices
 -------
