@@ -28,11 +28,11 @@ Here is how it might look when tagging and querying a content hierarchy for a fe
 .. code-block:: bash
 
     $ cd spiderman/assets
-    $ cquery Asset.class --tag --root=Peter
-    $ cquery Asset.class --tag --root=Goblin
+    $ cquery .Asset --tag --root=Peter
+    $ cquery .Asset --tag --root=Goblin
     $ cd ../shots
-    $ cquery Shot.class --tag --root=1000
-    $ cquery Shot.class --tag --root=2000
+    $ cquery .Shot --tag --root=1000
+    $ cquery .Shot --tag --root=2000
     $ cd ..
     $ cd ..
     $ cquery .Asset
