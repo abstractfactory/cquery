@@ -49,7 +49,7 @@ Up or Down
 
 Starting from a root directory, a query can either be made up or down. To find descending matches of a given directory, you would use DOWN. To instead query for ascending matches, you would use UP. To query one-self only, you would use NONE.
 
-Here is how that might look used in Python:
+Here is how that might look when used in Python:
 
 .. code-block:: python
 

@@ -64,8 +64,13 @@ def tag(root, selector):
 
     """
 
-    selector = qualify(selector)
-    path = os.path.join(root, selector)
+    selector = convert(selector)
+
+    directory = os.path.join(root, CONTAINER)
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
+    path = os.path.join(directory, selector)
 
     # Use os.open() as opposed to __builtin__.open()
     # due to support for low-level flags. This only
