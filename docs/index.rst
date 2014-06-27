@@ -13,6 +13,7 @@ Getting Started
     overview
     quickstart
     tutorial
+    example
 
 Reference
 ---------

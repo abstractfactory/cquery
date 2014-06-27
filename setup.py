@@ -20,5 +20,16 @@ setup(
     zip_safe=False,
     entry_points={
         'console_scripts': ['cquery = cquery.cli:main']
-    }
+    },
+    classifiers=[
+        'Development Status :: 3 - Alpha',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: LGPLv3 License',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 2.6',
+        'Programming Language :: Python :: 2.7',
+        'Topic :: Software Development :: Libraries :: Python Modules',
+        'Topic :: Utilities'
+    ],
 )

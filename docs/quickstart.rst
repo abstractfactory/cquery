@@ -4,45 +4,18 @@
 Quickstart
 ==========
 
-This page will guide you through setting up cQuery and running your first query.
+This page will guide you through setting up cQuery and running your first query. If you experience any problems here or are looking for more information about each step, head on the the :doc:`tutorial` for a full overview or :doc:`example` to experience a demo project.
 
 Install
 -------
 
-.. note:: Both cQuery and Open Metadata are pure-Python libraries and as such will require an installation of `Python`_. Tested on 2.7.7.
-
 .. code-block:: bash
 
-    $ pip install git+https://github.com/abstractfactory/openmetadata
     $ pip install git+https://github.com/abstractfactory/cquery
 
-Command-line
-------------
+.. note:: cQuery is a pure-Python library and as such will require an installation of `Python`_.
 
-To run cQuery from a command-line, we’ll expose it to the console.
-
-For Windows
-~~~~~~~~~~~
-
-Save this file somewhere in your PATH so that it can be accessed via a command-line.
-
-**cquery.bat**
-
-.. code-block:: bash
-
-    @echo off
-    python -m cquery %* --verbose
-
-For Unix
-~~~~~~~~
-
-**cquery**
-
-.. code-block:: bash
-
-    $ to be continued
-
-cQuery will install its executable automatically sometime in the future, I’m just not sure how to go about it at the moment. Does anyone have any experience with this? Let us know!
+.. note:: cQuery has been tested on Python 2.7.7 on Windows 8.1.
 
 Some Content
 ------------
@@ -58,6 +31,8 @@ Some Content
 
 Tag
 ---
+
+.. note:: cQuery ships with an executable. On Windows, you may have to add the Python27\\scripts directory to your PATH.
 
 .. code-block:: bash
 
