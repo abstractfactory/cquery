@@ -11,8 +11,9 @@ Getting Started
    :maxdepth: 2
    
    overview
-   schemaless
+   quickstart
    tutorial
+   schemaless
    reference
 
 Additional Information

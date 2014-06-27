@@ -62,6 +62,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#how-it-works">How it works</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#selectors">Selectors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#up-or-down">Up or Down</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#architecture">Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#performance">Performance</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="schemaless.html">Schemaless Directory Structures</a><ul>
@@ -70,8 +72,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#installing-open-metadata">Installing Open Metadata</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#installing-cquery">Installing cQuery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#installing">Installing</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a><ul>
@@ -117,7 +118,7 @@
             
   <div class="section" id="overview">
 <h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
-<p>cQuery is a library for file-system based metadata queries.</p>
+<p>cQuery is a library for metadata queries within a file-system, built to solve the issue of quickly finding and filtering content.</p>
 <div class="section" id="how-it-works">
 <h2>How it works<a class="headerlink" href="#how-it-works" title="Permalink to this headline">¶</a></h2>
 <p>Given a directory such as:</p>
@@ -169,6 +170,43 @@ $ cquery Female.class
 </div>
 </dd>
 </dl>
+</div>
+<div class="section" id="architecture">
+<h2>Architecture<a class="headerlink" href="#architecture" title="Permalink to this headline">¶</a></h2>
+<p>cQuery works upon directories tagged with metadata to indicate its class, ID or name. The tagged directories may then be queried, either from outside a hierarchy looking in or from within a hierarchy looking out in order to find either all matches or best-match.</p>
+<p>For tagging, cQuery uses the semantics of Open Metadata; the process is quite simple - for each subdirectory within a directory, recursively look for a file by name stored within the Open Metadata container. If a match is found, return the absolute path to said directory. The name of this file is the &#8220;selector&#8221; argument of your query.</p>
+<p>E.g. cquery .Asset  # Search for the file &#8220;Asset.class&#8221;</p>
+</div>
+<div class="section" id="performance">
+<h2>Performance<a class="headerlink" href="#performance" title="Permalink to this headline">¶</a></h2>
+<p>cQuery operates on the hard-drive and is a seek-only algorithm and as such doesn&#8217;t perform any reads. Despite this however, disk-access is (seemingly) the prime bottle-neck. cQuery has been implemented in both Python and Go for performance comparisons, here are some results:</p>
+<p><strong>Python</strong></p>
+<p><a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>python
+# Scanning a hierarchy of 3601 items
+# 1 queries, 7 matches in 1.494072 seconds
+# 1 queries, 7 matches in 1.480471 seconds
+# 1 queries, 7 matches in 1.477589 seconds
+#   Average time/query: 1.484044 seconds</p>
+<p># Scanning a hierarchy of 47715 items
+# 1 queries, 14 matches in 19.888399 seconds
+# 1 queries, 14 matches in 20.078811 seconds
+# 1 queries, 14 matches in 19.879660 seconds
+#   Average time/query: 19.948957 seconds</p>
+<p><a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">`</span></a></p>
+<p><strong>Go</strong></p>
+<p><a href="#id9"><span class="problematic" id="id10">``</span></a><a href="#id11"><span class="problematic" id="id12">`</span></a>python
+# Scanning a hierarchy of 3601 items
+# 1 queries, 7 matches in 1.425702 seconds
+# 1 queries, 7 matches in 1.420373 seconds
+# 1 queries, 7 matches in 1.419541 seconds
+#   Average time/query: 1.421872 seconds</p>
+<p># Scanning a hierarchy of 47715 items
+# 1 queries, 14 matches in 18.015012 seconds
+# 1 queries, 14 matches in 17.951607 seconds
+# 1 queries, 14 matches in 17.994924 seconds
+#   Average time/query: 17.987181 seconds
+<a href="#id13"><span class="problematic" id="id14">``</span></a><a href="#id15"><span class="problematic" id="id16">`</span></a></p>
+<p>As you can see, the differences are marginal and of little concern. A benefit of Go however is the standalone executables it produces which may prove useful in certain circumstances.</p>
 </div>
 </div>
 
