@@ -11,11 +11,11 @@ Install
 
 .. code-block:: bash
 
-    $ pip install git+https://github.com/abstractfactory/cquery
+    $ pip install cquery
 
 .. note:: cQuery is a pure-Python library and as such will require an installation of `Python`_.
 
-.. note:: cQuery has been tested on Python 2.7.7 on Windows 8.1.
+.. note:: cQuery has been tested on Python 2.7.7 on Windows 8.1 and Ubuntu 13.01
 
 Some Content
 ------------

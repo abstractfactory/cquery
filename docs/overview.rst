@@ -1,7 +1,7 @@
 Overview
 ========
 
-cQuery is a library for metadata queries within a file-system, built to solve the issue of quickly finding and filtering content.
+cQuery is a library for metadata queries within a file-system, built to solve the issue of quickly finding and filtering content. It's designed to simplify the development of tools surrounding absolute paths on a file-system, without actually specifying absolute paths, but we're also looking into additional uses, such as a making it into a fully-fledged search engine.
 
 How it works
 ------------
