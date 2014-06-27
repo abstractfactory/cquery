@@ -1,20 +1,15 @@
 from setuptools import setup, find_packages
-
-f = open('README.md')
-readme = f.read().strip()
-
-f = open('LICENSE.md')
-license = f.read().strip()
+import cquery
 
 setup(
     name='cQuery',
-    version='0.0.2',
+    version=cquery.version,
     description='Decentralised content queries',
-    long_description=readme,
+    long_description=open('README.txt').read(),
     author='Marcus Ottosson',
     author_email='marcus@abstractfactory.com',
     url='https://github.com/abstractfactory/cquery',
-    license=license,
+    license="License.txt",
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
@@ -24,7 +19,7 @@ setup(
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
-        'License :: OSI Approved :: LGPLv3 License',
+        'License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.6',

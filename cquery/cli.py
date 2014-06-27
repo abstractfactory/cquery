@@ -26,8 +26,8 @@ parser.add_argument('--root',
                     help="Absolute or relative path to query root"
                          " (defaults to the working directory")
 parser.add_argument('--direction', default='down',
-                    help="Search either up through a hierarchy, or down across"
-                         "the full subtree")
+                    help=("Search either up through a hierarchy,"
+                          "or down across the full subtree"))
 parser.add_argument('--verbose',
                     action='store_true',
                     default=True,
