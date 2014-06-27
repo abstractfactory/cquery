@@ -10,10 +10,14 @@ other command-line interfaces.
 
 """
 
+# Standard library
 import os
 import time
-import cquery
+import errno
 import argparse
+
+# Local library
+import cquery
 
 parser = argparse.ArgumentParser()
 parser.add_argument('selector', help="CSS3-compliant selector")
@@ -21,6 +25,10 @@ parser.add_argument('--tag',
                     action='store_true',
                     default=False,
                     help="Tag `root` with metadata matching this selector")
+parser.add_argument('--detag',
+                    action='store_true',
+                    default=False,
+                    help="Detag `root` from metadata matching this selector")
 parser.add_argument('--root',
                     default=None,
                     help="Absolute or relative path to query root"
@@ -41,6 +49,7 @@ parser.add_argument('--first',
 def cli(selector,
         root=None,
         tag=False,
+        detag=False,
         direction='down',
         verbose=False,
         first=False):
@@ -88,7 +97,7 @@ def cli(selector,
     else:
         print "Error: direction must be either up, down or none"
 
-    if not tag:
+    if not (tag or detag):
         try:
             results = list()
             clock = time.clock()
@@ -113,13 +122,26 @@ def cli(selector,
         except KeyboardInterrupt:
             pass
 
-    else:
-        # Write metadata
+    elif tag:
         try:
             cquery.tag(root, selector)
         except OSError as e:
-            # print "Tag already exists"
-            print e
+            if e.errno == errno.EEXIST:
+                print ("Error: Tag already exists. "
+                       "Use --detag to remove existing tag.")
+            else:
+                raise
+
+    elif detag:
+        try:
+            cquery.detag(root, selector)
+
+        except OSError as e:
+            if e.errno == errno.ENOENT:
+                print ("Error: Tag does not exist. "
+                       "Use --tag to create new tag")
+            else:
+                raise
 
 
 def main():
@@ -127,6 +149,7 @@ def main():
     cli(selector=args.selector,
         root=args.root,
         tag=args.tag,
+        detag=args.detag,
         direction=args.direction,
         verbose=args.verbose,
         first=args.first)

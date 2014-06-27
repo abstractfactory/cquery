@@ -24,6 +24,7 @@ __all__ = [
     'UP',
     'DOWN',
     'tag',
+    'detag',
     'matches',
     'first_match',
     'convert'
