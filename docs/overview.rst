@@ -72,7 +72,7 @@ Architecture
 
 cQuery works upon directories tagged with metadata to indicate its class, ID or name. The tagged directories may then be queried, either from outside a hierarchy looking in or from within a hierarchy looking out.
 
-For tagging, cQuery uses the Open Metadata library; the process is quite simple - for each subdirectory within a directory, recursively look for a file by name stored within the Open Metadata container. If a match is found, return the absolute path to said directory. The name of this file is the "selector" argument of your query.
+For tagging, cQuery uses the Open Metadata specification [1]_, the process is quite simple - for each subdirectory within a directory, recursively look for a file by name stored within the Open Metadata container. If a match is found, return the absolute path to said directory. The name of this file is the "selector" argument of your query.
 
 Example:
 
@@ -125,3 +125,5 @@ For some more encouraging results in file-system search and indexing, here are s
 - http://www.lesbonscomptes.com/recoll/
 - http://grothoff.org/christian/doodle/
 - http://xapian.org/
+
+.. [1] For more information on Open Metadata, see here https://github.com/abstractfactory/openmetadata
