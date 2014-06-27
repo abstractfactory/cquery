@@ -13,7 +13,6 @@ other command-line interfaces.
 # Standard library
 import os
 import time
-import errno
 import argparse
 
 # Local library
@@ -81,6 +80,10 @@ def cli(selector,
 
     """
 
+    if tag and detag:
+        print "Error: tag and detag flags must be mutually exclusive"
+        return
+
     root = root
 
     if root:
@@ -125,23 +128,15 @@ def cli(selector,
     elif tag:
         try:
             cquery.tag(root, selector)
-        except OSError as e:
-            if e.errno == errno.EEXIST:
-                print ("Error: Tag already exists. "
-                       "Use --detag to remove existing tag.")
-            else:
-                raise
+        except (cquery.TagExists, cquery.RootExists) as e:
+            print "Error: {}".format(e)
 
     elif detag:
         try:
             cquery.detag(root, selector)
 
-        except OSError as e:
-            if e.errno == errno.ENOENT:
-                print ("Error: Tag does not exist. "
-                       "Use --tag to create new tag")
-            else:
-                raise
+        except (cquery.TagExists, cquery.RootExists) as e:
+                print "Error: {}".format(e)
 
 
 def main():

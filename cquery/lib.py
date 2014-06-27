@@ -18,6 +18,7 @@ Attributes:
 """
 
 import os
+import errno
 
 __all__ = [
     'NONE',
@@ -27,7 +28,9 @@ __all__ = [
     'detag',
     'matches',
     'first_match',
-    'convert'
+    'convert',
+    'TagExists',
+    'RootExists'
 ]
 
 # As per the Open Metadata RFC
@@ -38,6 +41,14 @@ CONTAINER = ".meta"
 NONE = 1 << 0
 UP = 1 << 1
 DOWN = 1 << 2
+
+
+class TagExists(OSError):
+    """Raised when a selector either exists or does not exist"""
+
+
+class RootExists(OSError):
+    """Raised when a root either exists or does not exist"""
 
 
 def tag(root, selector):
@@ -66,17 +77,26 @@ def tag(root, selector):
 
     selector = convert(selector)
 
-    directory = os.path.join(root, CONTAINER)
-    if not os.path.exists(directory):
-        os.makedirs(directory)
+    if not os.path.exists(root):
+        raise RootExists("Root did not exist")
 
-    path = os.path.join(directory, selector)
+    container = os.path.join(root, CONTAINER)
+    if not os.path.exists(container):
+        os.makedirs(container)
+
+    path = os.path.join(container, selector)
 
     # Use os.open() as opposed to __builtin__.open()
     # due to support for low-level flags. This only
     # creates a new file if no file already exists.
-    f = os.open(path, os.O_CREAT | os.O_EXCL)
-    os.close(f)
+    try:
+        f = os.open(path, os.O_CREAT | os.O_EXCL)
+        os.close(f)
+    except OSError as e:
+        if e.errno == errno.EEXIST:
+            raise TagExists("Error: Tag already exists. "
+                            "Use --detag to remove existing tag.")
+        raise
 
     return True
 
@@ -105,10 +125,20 @@ def detag(root, selector):
 
     """
 
-    selector = qualify(selector)
-    path = os.path.join(root, selector)
+    if not os.path.exists(root):
+        raise RootExists("Root did not exist")
 
-    os.remove(path)
+    selector = convert(selector)
+
+    container = os.path.join(root, CONTAINER)
+    path = os.path.join(container, selector)
+
+    try:
+        os.remove(path)
+    except OSError as e:
+        if e.errno == errno.ENOENT:
+            raise TagExists("Error: Tag does not exist.")
+        raise
 
     return True
 

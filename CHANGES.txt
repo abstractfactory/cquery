@@ -3,4 +3,5 @@ v0.1.1, 2014-06-27 -- PyPI installed addressed
 v0.1.2, 2014-06-27 -- tag and detag flags added
 v0.1.3, 2014-06-27 -- Formatted README.txt
 v0.1.4, 2014-06-27 -- Formatted README.txt
-v0.1.5, 2014-06-27 -- Tagging didn't work on previously empty directories
+v0.1.5, 2014-06-27 -- Tagging didn't work on directories with no pre-existing metadata. It works now.
+v0.1.6, 2014-06-27 -- Tagging on non-existing directories would create them. This isn't intuitive and has been removed. Tag and detag flags are now mutually exclusive.
