@@ -1,6 +1,8 @@
 Tutorial
 ========
 
+.. note:: Much of the below in in the works. Keep tabs on the `github repository`_ for more immediate updates or if you're interested in collaborating.
+
 This page is meant as a more thourough version of the :doc:`quickstart`. If you haven't been through it yet, it is recommended that you do so before proceeding.
 
 Process
@@ -96,3 +98,4 @@ Finally, the central deamon, like the dedicated daemon, is persistent but as opp
 
 
 .. _cquery.py: https://github.com/abstractfactory/cquery/blob/master/python/cquery.py
+.. _github repository: https://github.com/abstractfactory/cquery
