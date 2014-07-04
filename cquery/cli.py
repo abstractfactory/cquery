@@ -37,12 +37,15 @@ parser.add_argument('--direction', default='down',
                           "or down across the full subtree"))
 parser.add_argument('--verbose',
                     action='store_true',
-                    default=True,
+                    default=False,
                     help="Print additional information about query")
 parser.add_argument('--first',
                     action='store_true',
                     default=False,
                     help="Only return a first match")
+parser.add_argument('--depth',
+                    type=int,
+                    default=-1)
 
 
 def cli(selector,
@@ -51,7 +54,8 @@ def cli(selector,
         detag=False,
         direction='down',
         verbose=False,
-        first=False):
+        first=False,
+        depth=-1):
 
     """Command-line interface interpreter
 
@@ -106,11 +110,11 @@ def cli(selector,
             clock = time.clock()
             for result in cquery.matches(root=root,
                                          selector=selector,
-                                         direction=direction):
+                                         direction=direction,
+                                         depth=depth):
 
-                if verbose is True:
-                    print "{}".format(result)
-                    results.append(result)
+                print "{}".format(result)
+                results.append(result)
 
                 if first is True:
                     break
@@ -147,7 +151,8 @@ def main():
         detag=args.detag,
         direction=args.direction,
         verbose=args.verbose,
-        first=args.first)
+        first=args.first,
+        depth=args.depth)
 
 
 if __name__ == '__main__':

@@ -201,7 +201,7 @@ def qualify(selector):
     return os.path.join(CONTAINER, convert(selector))
 
 
-def matches(root, selector, direction=DOWN):
+def matches(root, selector, direction=DOWN, depth=-1):
     """Yield matches at absolute path `root` for selector `selector`
     given the direction `direction`.
 
@@ -211,6 +211,7 @@ def matches(root, selector, direction=DOWN):
         root (str): Absolute path from which where to start looking
         selector (str): CSS3-compliant selector, e.g. ".Asset"
         direction (enum, optional): Search either up or down a hierarchy
+        depth (int): Depth of traversal; a value of -1 means infinite
 
     Yields:
         path (str): Absolute path of next match.
@@ -226,15 +227,22 @@ def matches(root, selector, direction=DOWN):
     selector = qualify(selector)
 
     if direction & DOWN:
-        for root, _, _ in os.walk(root):
-            if os.path.basename(root).startswith("."):
+        for base, dirs, _ in os.walk(root, topdown=True):
+            if os.path.basename(base).startswith("."):
                 continue
 
-            path = os.path.join(root, selector)
+            if depth >= 0:
+                head = base[len(root)+len(os.path.sep):]
+                level = head.count(os.path.sep)
+                if level >= depth:
+                    dirs[:] = []  # Don't recurse any deeper
+
+            path = os.path.join(base, selector)
             if os.path.isfile(path):
-                yield root
+                yield base
 
     elif direction & UP:
+        level = 0
         while True:
             path = os.path.join(root, selector)
             if os.path.isfile(path):
@@ -242,6 +250,12 @@ def matches(root, selector, direction=DOWN):
 
             old_root = root
             root = os.path.dirname(root)
+
+            if depth >= 0:
+                level += 1
+                if level >= depth:
+                    break
+
             if root == old_root:
                 # Top-level reached
                 break
