@@ -125,7 +125,7 @@ class Index(object):
                     results.append(path)
                     print path
 
-        print " Querying directory of {}".format(self.root)
+        print "\n Querying directory of {}".format(self.root)
         print "\t\tSelector {}".format(selector)
         print "\t\t{} results in {}s".format(len(results),
                                              time.clock() - clock)
