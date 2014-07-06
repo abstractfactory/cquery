@@ -1,4 +1,4 @@
-"""Default test suite"""
+"""Default test suite."""
 
 import os
 import cquery
