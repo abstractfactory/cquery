@@ -13,6 +13,7 @@ other command-line interfaces.
 # Standard library
 import os
 import time
+import errno
 import argparse
 
 # Local library
@@ -103,21 +104,26 @@ def cli(selector,
         direction = cquery.NONE
     else:
         print "Error: direction must be either up, down or none"
+        return
 
     if not (tag or detag):
         try:
             results = list()
             clock = time.clock()
-            for result in cquery.matches(root=root,
-                                         selector=selector,
-                                         direction=direction,
-                                         depth=depth):
+            try:
+                for result in cquery.matches(root=root,
+                                             selector=selector,
+                                             direction=direction,
+                                             depth=depth):
 
-                print "{}".format(result)
-                results.append(result)
+                    print "{}".format(result)
+                    results.append(result)
 
-                if first is True:
-                    break
+                    if first is True:
+                        break
+            except OSError as e:
+                if e.errno == errno.ENOTDIR:
+                    print e
 
             if verbose:
                 print ""

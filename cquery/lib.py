@@ -27,6 +27,9 @@ __all__ = [
     'tag',
     'detag',
     'matches',
+    'qualify',
+    'has_class',
+    'has_id',
     'first_match',
     'convert',
     'TagExists',
@@ -51,6 +54,28 @@ class RootExists(OSError):
     """Raised when a root either exists or does not exist"""
 
 
+def has_class(root, selector):
+    """Test absolute path `root` for class `selector`
+
+    Returns:
+        True if `root` has been tagged with class `selector` else False
+
+    """
+
+    return True if first_match(root, selector) is not None else False
+
+
+def has_id(root, selector):
+    """Test absolute path `root` for id `selector`
+
+    Returns:
+        True if `root` has been tagged with id `selector` else False
+
+    """
+
+    return True if first_match(root, selector) is not None else False
+
+
 def tag(root, selector):
     """Tag absolute path `root` with selector `selector`
 
@@ -65,7 +90,8 @@ def tag(root, selector):
         status (bool): True if success
 
     Raises:
-        OSError: If selector `selector` already exists.
+        TagExists: If selector `selector` already exists.
+        RootExists: If root does not exist
 
     Example:
         >>> tag(r"c:\users\marcus", ".User")
@@ -78,7 +104,7 @@ def tag(root, selector):
     selector = convert(selector)
 
     if not os.path.exists(root):
-        raise RootExists("Root did not exist")
+        raise RootExists("{} did not exist".format(root))
 
     container = os.path.join(root, CONTAINER)
     if not os.path.exists(container):
@@ -114,7 +140,7 @@ def detag(root, selector):
         status (bool): True if successful, False otherwise
 
     Raises:
-        OSError: If selector `selector` at absolute path `root`
+        TagExist: If selector `selector` at absolute path `root`
             does not exists.
 
     Example:
@@ -216,6 +242,12 @@ def matches(root, selector, direction=DOWN, depth=-1):
     Yields:
         path (str): Absolute path of next match.
 
+    Attributes:
+        errors: Collection of errors occured during os.walk (NotImplemented)
+
+    Raises:
+        OSError: ENOTDIR is raised if path `root` is not a directory
+
     Example:
         >>> import os
         >>> paths = list()
@@ -224,10 +256,23 @@ def matches(root, selector, direction=DOWN, depth=-1):
 
     """
 
+    if not isinstance(direction, int):
+        raise ValueError("Direction must be bitwise flag as supplied by"
+                         "the cquery package.")
+
+    if os.path.exists(root) and not os.path.isdir(root):
+        raise OSError(errno.ENOTDIR, "{} is not a directory".format(root))
+
+    errors = list()
     selector = qualify(selector)
 
+    def error_collector(exception):
+        errors.append(exception)
+
     if direction & DOWN:
-        for base, dirs, _ in os.walk(root, topdown=True):
+        for base, dirs, _ in os.walk(root,
+                                     topdown=True,
+                                     onerror=error_collector):
             if os.path.basename(base).startswith("."):
                 continue
 
@@ -269,7 +314,7 @@ def matches(root, selector, direction=DOWN, depth=-1):
         raise ValueError("Direction not recognised: %s" % direction)
 
 
-def first_match(root, selector, direction=DOWN):
+def first_match(root, selector, direction=DOWN, depth=-1):
     """Convenience function for returning a first match from :func:`matches`.
 
     Arguments:
@@ -289,7 +334,8 @@ def first_match(root, selector, direction=DOWN):
     try:
         return next(matches(root=root,
                             selector=selector,
-                            direction=direction))
+                            direction=direction,
+                            depth=depth))
     except StopIteration:
         return None
 
@@ -297,6 +343,3 @@ def first_match(root, selector, direction=DOWN):
 if __name__ == '__main__':
     import doctest
     doctest.testmod()
-
-    tag(r'c:\users\marcus', '.Asset')
-    detag(r'c:\users\marcus', '.Asset')
