@@ -33,7 +33,8 @@ __all__ = [
     'first_match',
     'convert',
     'TagExists',
-    'RootExists'
+    'RootExists',
+    'CONTAINER'
 ]
 
 # As per the Open Metadata RFC
@@ -256,9 +257,7 @@ def matches(root, selector, direction=DOWN, depth=-1):
 
     """
 
-    if not isinstance(direction, int):
-        raise ValueError("Direction must be bitwise flag as supplied by"
-                         "the cquery package.")
+    assert isinstance(direction, int)
 
     if os.path.exists(root) and not os.path.isdir(root):
         raise OSError(errno.ENOTDIR, "{} is not a directory".format(root))
