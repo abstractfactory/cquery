@@ -95,9 +95,11 @@ def tag(root, selector):
         RootExists: If root does not exist
 
     Example:
-        >>> tag(r"c:\users\marcus", ".User")
+        >>> import tempfile
+        >>> root = tempfile.mkdtemp()
+        >>> tag(root, ".User")
         True
-        >>> detag(r"c:\users\marcus", ".User")
+        >>> detag(root, ".User")
         True
 
     """
@@ -145,9 +147,11 @@ def detag(root, selector):
             does not exists.
 
     Example:
-        >>> tag(r"c:\users\marcus", ".User")
+        >>> import tempfile
+        >>> root = tempfile.mkdtemp()
+        >>> tag(root, ".User")
         True
-        >>> detag(r"c:\users\marcus", ".User")
+        >>> detag(root, ".User")
         True
 
     """
