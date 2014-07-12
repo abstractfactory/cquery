@@ -1,0 +1,1 @@
+nosetests ..\..\repos\cquery --with-doctest --with-coverage --cover-html

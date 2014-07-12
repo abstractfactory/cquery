@@ -1,8 +1,0 @@
-[run]
-source = cquery
-
-; to make nosetests happy
-[report]
-omit = 
-    */python?.?/*
-    */site-packages/nose/*
