@@ -9,7 +9,7 @@ setup(
     author='Marcus Ottosson',
     author_email='marcus@abstractfactory.com',
     url='https://github.com/abstractfactory/cquery',
-    license="License.txt",
+    license="license.txt",
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
