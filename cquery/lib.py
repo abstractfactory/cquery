@@ -123,8 +123,7 @@ def tag(root, selector):
         os.close(f)
     except OSError as e:
         if e.errno == errno.EEXIST:
-            raise TagExists("Error: Tag already exists. "
-                            "Use --detag to remove existing tag.")
+            raise TagExists("%s already exists." % selector)
         raise
 
     return True
@@ -168,7 +167,7 @@ def detag(root, selector):
         os.remove(path)
     except OSError as e:
         if e.errno == errno.ENOENT:
-            raise TagExists("Error: Tag does not exist.")
+            raise TagExists("%s does not exist." % selector)
         raise
 
     return True

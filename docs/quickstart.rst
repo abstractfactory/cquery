@@ -37,11 +37,11 @@ Tag
 .. code-block:: bash
 
     $ cd spiderman/assets
-    $ cquery .Asset --tag --root=Peter
-    $ cquery .Asset --tag --root=Goblin
+    $ cquery tag .Asset --root=Peter
+    $ cquery tag .Asset --root=Goblin
     $ cd ../shots
-    $ cquery .Shot --tag --root=1000
-    $ cquery .Shot --tag --root=2000
+    $ cquery tag .Shot --root=1000
+    $ cquery tag .Shot --root=2000
 
 Query
 -----
@@ -50,7 +50,7 @@ Query
 
     $ cd ..
     $ cd ..
-    $ cquery .Asset
+    $ cquery search .Asset
     c:/projects/spiderman/assets/Peter
     c:/projects/spiderman/assets/Goblin
 

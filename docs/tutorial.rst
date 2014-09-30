@@ -8,7 +8,7 @@ This page is meant as a more thourough version of the :doc:`quickstart`. If you 
 Process
 -------
 
-cQuery is meant to be simple and to depend on as little knowledge and setup as possible. As such, to get started with cQuery there are three steps to fulfill:
+cQuery is simple and depends on as little knowledge and setup as possible. As such, to get started with cQuery there are three steps to fulfill:
 
 1. Install cQuery
 2. Tag content
@@ -18,41 +18,15 @@ Once set up, a more general workflow may look like this:
 
 1. Tag content
 2. Query content
-   
-Tagging is performed via Open Metadata - a decentralised metadata storage and retrieval library for Python.
 
 Installation
 ------------
 
-The algorithm used by cQuery is minimal and simple and although we use Open Metadata to associate metadata to folders we with to include in a query, Open Metadata doesn't quite get to flex its muscles at the moment as queries only cover plain names of files (<name>.class and <name>.id specifically) however the plan is to expose cQuery to all of what Open Metadatas has to offer. To allow users to query not only names but contents of files; be it plain text documents, stereoscopic images or complex 3d geometry.
-
-To get started, install Open Metadata and cQuery like this:
+To get started, install cQuery like this:
 
 .. code-block::bash
-    $ pip install git+https://github.com/abstractfactory/openmetadata
-    $ pip install git+https://github.com/abstractfactory/cquery.git
+    $ pip install cquery
 
-
-Setup
------
-
-cQuery is designed as a Python library and although the plan is to involve other languages too, we'll set it up so that you can work with it via the command-line. That way we can play around with cQuery and get a feel for its potential.
-
-The plan is to have cQuery be available via PyPI and come with its own platform-independent executable. But until then, we will construct our own.
-
-The cQuery Python package is designed to be used as a Command-line Interface (cli), so all we need to do is expose this to a command-line.
-
-Windows
-~~~~~~~
-
-Save this file somewhere in your PATH so that it can be accessed via a command-line.
-
-**cquery.bat**
-
-.. code-block:: bash
-
-    @echo off
-    python -m cquery %* --verbose
 
 Content
 -------

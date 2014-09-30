@@ -1,10 +1,19 @@
 language: python
 python:
-  - 2.7
+- 2.7
 install:
-  - pip install coveralls
+- pip install coveralls
 script:
-  - nosetests --cover-package=cquery --with-doctest --with-coverage
-  - pip install git+git://github.com/abstractfactory/cquery.git
+- nosetests --cover-package=cquery --with-doctest --with-coverage
+- pip install git+git://github.com/abstractfactory/cquery.git
 after_success:
-  - coveralls
+- coveralls
+deploy:
+  provider: pypi
+  user: mottosso
+  distributions: "sdist"
+  password:
+    secure: ZGsH8qvpYKOnKQ22NUm5TSJcUWKjvIXjiBgKeROCmye5ovV+xqhhe6ka3inWN6kiT0/STslLu3pFyExPtUBc+LUUAE34YQOjJ76hHqqtivS8bCAaM3dOJQZ86xpLkz7PVdXI06ON6vRiPzUzMObJ/HZN5rBr5kY5/2uU7HoUI5s=
+  on:
+    tags: true
+    all_branches: true

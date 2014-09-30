@@ -5,7 +5,7 @@ cQuery implements a decentralised method of querying file-system contents using 
 
 .. code-block:: bash
     
-    $ cquery .Asset
+    $ cquery search .Asset
     /path/to/asset1
     /path/to/asset2
     /path/to/asset3
@@ -34,17 +34,10 @@ Here is how it might look when tagging and querying a content hierarchy for a fe
 
 .. code-block:: bash
 
-    $ cd spiderman/assets
-    $ cquery .Asset --tag --root=Peter
-    $ cquery .Asset --tag --root=Goblin
-    $ cd ../shots
-    $ cquery .Shot --tag --root=1000
-    $ cquery .Shot --tag --root=2000
-    $ cd ..
-    $ cd ..
-    $ cquery .Asset
-    c:/projects/spiderman/assets/Peter
-    c:/projects/spiderman/assets/Goblin
+    $ cd MyAsset
+    $ cquery tag .Asset
+    $ cquery search .Asset
+    /path/to/MyAsset
 
 Decentralised
 -------------
