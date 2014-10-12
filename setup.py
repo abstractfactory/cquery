@@ -14,7 +14,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     entry_points={
-        'console_scripts': ['cquery = cquery.cli:main']
+        'console_scripts': ['cquery = cquery.__main__:main']
     },
     classifiers=[
         'Development Status :: 3 - Alpha',
