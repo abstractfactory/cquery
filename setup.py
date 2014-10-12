@@ -1,9 +1,15 @@
 from setuptools import setup, find_packages
-import cquery
+
+import os
+import imp
+
+version_file = os.path.abspath('cquery/version.py')
+version_mod = imp.load_source('version', version_file)
+version = version_mod.version
 
 setup(
-    name='cQuery',
-    version=cquery.version,
+    name='cquery',
+    version=version,
     description='Decentralised content queries',
     long_description=open('README.txt').read(),
     author='Marcus Ottosson',
