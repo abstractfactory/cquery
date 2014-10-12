@@ -8,7 +8,7 @@ version_mod = imp.load_source('version', version_file)
 version = version_mod.version
 
 setup(
-    name='cquery',
+    name='cQuery',
     version=version,
     description='Decentralised content queries',
     long_description=open('README.txt').read(),
