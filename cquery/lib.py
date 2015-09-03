@@ -279,7 +279,7 @@ def matches(root, selector, direction=DOWN, depth=-1):
                 continue
 
             if depth >= 0:
-                head = base[len(root)+len(os.path.sep):]
+                head = base[len(root)+len(os.path.sep) - 1:]
                 level = head.count(os.path.sep)
                 if level >= depth:
                     dirs[:] = []  # Don't recurse any deeper
