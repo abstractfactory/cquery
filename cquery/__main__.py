@@ -4,7 +4,7 @@ This module makes the cQuery package into an executable, via cli.py
 
 """
 
-import cquery.cli
+from . import cli
 
 
 def main():

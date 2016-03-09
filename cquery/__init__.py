@@ -1,2 +1,2 @@
-from cquery.lib import *
-from cquery.version import *
+from .lib import *
+from .version import *
